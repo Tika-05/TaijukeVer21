@@ -1,0 +1,644 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8727F2DA22E1E08F00C7E908 /* ViewControllerCreate0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8727F2D922E1E08F00C7E908 /* ViewControllerCreate0.swift */; };
+		8739AE4122D4AE7400ABB29C /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8739AE4022D4AE7400ABB29C /* CustomTableViewCell.swift */; };
+		875E83E622E2B36900388BA0 /* カゴ.png in Resources */ = {isa = PBXBuildFile; fileRef = 875E83E422E2B36900388BA0 /* カゴ.png */; };
+		875E83E722E2B36900388BA0 /* 鯛.png in Resources */ = {isa = PBXBuildFile; fileRef = 875E83E522E2B36900388BA0 /* 鯛.png */; };
+		875E83EA22E2B59600388BA0 /* スクリーンショット 2019-07-20 11.34.22.png in Resources */ = {isa = PBXBuildFile; fileRef = 875E83E922E2B59600388BA0 /* スクリーンショット 2019-07-20 11.34.22.png */; };
+		87C67C2722CF178300BCEAD1 /* ViewControllerCreate1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C67C2622CF178300BCEAD1 /* ViewControllerCreate1.swift */; };
+		87C67C2922CF17AD00BCEAD1 /* ViewControllerCreate2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C67C2822CF17AD00BCEAD1 /* ViewControllerCreate2.swift */; };
+		87C67C2B22CF17D100BCEAD1 /* ViewControllerCreate3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C67C2A22CF17D100BCEAD1 /* ViewControllerCreate3.swift */; };
+		87E40A8122CCC0AB001E08AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E40A8022CCC0AB001E08AA /* AppDelegate.swift */; };
+		87E40A8322CCC0AB001E08AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E40A8222CCC0AB001E08AA /* ViewController.swift */; };
+		87E40A8622CCC0AB001E08AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87E40A8422CCC0AB001E08AA /* Main.storyboard */; };
+		87E40A8922CCC0AB001E08AA /* TaijukeVer_2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 87E40A8722CCC0AB001E08AA /* TaijukeVer_2.xcdatamodeld */; };
+		87E40A8B22CCC0AD001E08AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87E40A8A22CCC0AD001E08AA /* Assets.xcassets */; };
+		87E40A8E22CCC0AD001E08AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87E40A8C22CCC0AD001E08AA /* LaunchScreen.storyboard */; };
+		87E40A9922CCC0AD001E08AA /* TaijukeVer_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E40A9822CCC0AD001E08AA /* TaijukeVer_2Tests.swift */; };
+		87E40AA422CCC0AD001E08AA /* TaijukeVer_2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E40AA322CCC0AD001E08AA /* TaijukeVer_2UITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		87E40A9522CCC0AD001E08AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 87E40A7522CCC0AB001E08AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87E40A7C22CCC0AB001E08AA;
+			remoteInfo = TaijukeVer.2;
+		};
+		87E40AA022CCC0AD001E08AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 87E40A7522CCC0AB001E08AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87E40A7C22CCC0AB001E08AA;
+			remoteInfo = TaijukeVer.2;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8727F2D922E1E08F00C7E908 /* ViewControllerCreate0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerCreate0.swift; sourceTree = "<group>"; };
+		8739AE4022D4AE7400ABB29C /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		875E83E422E2B36900388BA0 /* カゴ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "カゴ.png"; sourceTree = "<group>"; };
+		875E83E522E2B36900388BA0 /* 鯛.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "鯛.png"; sourceTree = "<group>"; };
+		875E83E922E2B59600388BA0 /* スクリーンショット 2019-07-20 11.34.22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "スクリーンショット 2019-07-20 11.34.22.png"; sourceTree = "<group>"; };
+		87C67C2622CF178300BCEAD1 /* ViewControllerCreate1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerCreate1.swift; sourceTree = "<group>"; };
+		87C67C2822CF17AD00BCEAD1 /* ViewControllerCreate2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerCreate2.swift; sourceTree = "<group>"; };
+		87C67C2A22CF17D100BCEAD1 /* ViewControllerCreate3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerCreate3.swift; sourceTree = "<group>"; };
+		87E40A7D22CCC0AB001E08AA /* TaijukeVer.2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaijukeVer.2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		87E40A8022CCC0AB001E08AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		87E40A8222CCC0AB001E08AA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		87E40A8522CCC0AB001E08AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		87E40A8822CCC0AB001E08AA /* TaijukeVer_2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TaijukeVer_2.xcdatamodel; sourceTree = "<group>"; };
+		87E40A8A22CCC0AD001E08AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		87E40A8D22CCC0AD001E08AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		87E40A8F22CCC0AD001E08AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87E40A9422CCC0AD001E08AA /* TaijukeVer.2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaijukeVer.2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		87E40A9822CCC0AD001E08AA /* TaijukeVer_2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaijukeVer_2Tests.swift; sourceTree = "<group>"; };
+		87E40A9A22CCC0AD001E08AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87E40A9F22CCC0AD001E08AA /* TaijukeVer.2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaijukeVer.2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		87E40AA322CCC0AD001E08AA /* TaijukeVer_2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaijukeVer_2UITests.swift; sourceTree = "<group>"; };
+		87E40AA522CCC0AD001E08AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		87E40A7A22CCC0AB001E08AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87E40A9122CCC0AD001E08AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87E40A9C22CCC0AD001E08AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		875E83E822E2B55D00388BA0 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				875E83E922E2B59600388BA0 /* スクリーンショット 2019-07-20 11.34.22.png */,
+				875E83E422E2B36900388BA0 /* カゴ.png */,
+				875E83E522E2B36900388BA0 /* 鯛.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		87E40A7422CCC0AB001E08AA = {
+			isa = PBXGroup;
+			children = (
+				87E40A7F22CCC0AB001E08AA /* TaijukeVer.2 */,
+				87E40A9722CCC0AD001E08AA /* TaijukeVer.2Tests */,
+				87E40AA222CCC0AD001E08AA /* TaijukeVer.2UITests */,
+				87E40A7E22CCC0AB001E08AA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		87E40A7E22CCC0AB001E08AA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				87E40A7D22CCC0AB001E08AA /* TaijukeVer.2.app */,
+				87E40A9422CCC0AD001E08AA /* TaijukeVer.2Tests.xctest */,
+				87E40A9F22CCC0AD001E08AA /* TaijukeVer.2UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		87E40A7F22CCC0AB001E08AA /* TaijukeVer.2 */ = {
+			isa = PBXGroup;
+			children = (
+				87E40A8022CCC0AB001E08AA /* AppDelegate.swift */,
+				87E40A8222CCC0AB001E08AA /* ViewController.swift */,
+				8739AE4022D4AE7400ABB29C /* CustomTableViewCell.swift */,
+				8727F2D922E1E08F00C7E908 /* ViewControllerCreate0.swift */,
+				87C67C2622CF178300BCEAD1 /* ViewControllerCreate1.swift */,
+				87C67C2822CF17AD00BCEAD1 /* ViewControllerCreate2.swift */,
+				87C67C2A22CF17D100BCEAD1 /* ViewControllerCreate3.swift */,
+				87E40A8422CCC0AB001E08AA /* Main.storyboard */,
+				875E83E822E2B55D00388BA0 /* Images */,
+				87E40A8A22CCC0AD001E08AA /* Assets.xcassets */,
+				87E40A8C22CCC0AD001E08AA /* LaunchScreen.storyboard */,
+				87E40A8F22CCC0AD001E08AA /* Info.plist */,
+				87E40A8722CCC0AB001E08AA /* TaijukeVer_2.xcdatamodeld */,
+			);
+			path = TaijukeVer.2;
+			sourceTree = "<group>";
+		};
+		87E40A9722CCC0AD001E08AA /* TaijukeVer.2Tests */ = {
+			isa = PBXGroup;
+			children = (
+				87E40A9822CCC0AD001E08AA /* TaijukeVer_2Tests.swift */,
+				87E40A9A22CCC0AD001E08AA /* Info.plist */,
+			);
+			path = TaijukeVer.2Tests;
+			sourceTree = "<group>";
+		};
+		87E40AA222CCC0AD001E08AA /* TaijukeVer.2UITests */ = {
+			isa = PBXGroup;
+			children = (
+				87E40AA322CCC0AD001E08AA /* TaijukeVer_2UITests.swift */,
+				87E40AA522CCC0AD001E08AA /* Info.plist */,
+			);
+			path = TaijukeVer.2UITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		87E40A7C22CCC0AB001E08AA /* TaijukeVer.2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87E40AA822CCC0AD001E08AA /* Build configuration list for PBXNativeTarget "TaijukeVer.2" */;
+			buildPhases = (
+				87E40A7922CCC0AB001E08AA /* Sources */,
+				87E40A7A22CCC0AB001E08AA /* Frameworks */,
+				87E40A7B22CCC0AB001E08AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TaijukeVer.2;
+			productName = TaijukeVer.2;
+			productReference = 87E40A7D22CCC0AB001E08AA /* TaijukeVer.2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		87E40A9322CCC0AD001E08AA /* TaijukeVer.2Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87E40AAB22CCC0AD001E08AA /* Build configuration list for PBXNativeTarget "TaijukeVer.2Tests" */;
+			buildPhases = (
+				87E40A9022CCC0AD001E08AA /* Sources */,
+				87E40A9122CCC0AD001E08AA /* Frameworks */,
+				87E40A9222CCC0AD001E08AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				87E40A9622CCC0AD001E08AA /* PBXTargetDependency */,
+			);
+			name = TaijukeVer.2Tests;
+			productName = TaijukeVer.2Tests;
+			productReference = 87E40A9422CCC0AD001E08AA /* TaijukeVer.2Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		87E40A9E22CCC0AD001E08AA /* TaijukeVer.2UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87E40AAE22CCC0AD001E08AA /* Build configuration list for PBXNativeTarget "TaijukeVer.2UITests" */;
+			buildPhases = (
+				87E40A9B22CCC0AD001E08AA /* Sources */,
+				87E40A9C22CCC0AD001E08AA /* Frameworks */,
+				87E40A9D22CCC0AD001E08AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				87E40AA122CCC0AD001E08AA /* PBXTargetDependency */,
+			);
+			name = TaijukeVer.2UITests;
+			productName = TaijukeVer.2UITests;
+			productReference = 87E40A9F22CCC0AD001E08AA /* TaijukeVer.2UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		87E40A7522CCC0AB001E08AA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "sea&see";
+				TargetAttributes = {
+					87E40A7C22CCC0AB001E08AA = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					87E40A9322CCC0AD001E08AA = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 87E40A7C22CCC0AB001E08AA;
+					};
+					87E40A9E22CCC0AD001E08AA = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 87E40A7C22CCC0AB001E08AA;
+					};
+				};
+			};
+			buildConfigurationList = 87E40A7822CCC0AB001E08AA /* Build configuration list for PBXProject "TaijukeVer.2" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 87E40A7422CCC0AB001E08AA;
+			productRefGroup = 87E40A7E22CCC0AB001E08AA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				87E40A7C22CCC0AB001E08AA /* TaijukeVer.2 */,
+				87E40A9322CCC0AD001E08AA /* TaijukeVer.2Tests */,
+				87E40A9E22CCC0AD001E08AA /* TaijukeVer.2UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		87E40A7B22CCC0AB001E08AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				875E83EA22E2B59600388BA0 /* スクリーンショット 2019-07-20 11.34.22.png in Resources */,
+				87E40A8E22CCC0AD001E08AA /* LaunchScreen.storyboard in Resources */,
+				875E83E622E2B36900388BA0 /* カゴ.png in Resources */,
+				875E83E722E2B36900388BA0 /* 鯛.png in Resources */,
+				87E40A8B22CCC0AD001E08AA /* Assets.xcassets in Resources */,
+				87E40A8622CCC0AB001E08AA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87E40A9222CCC0AD001E08AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87E40A9D22CCC0AD001E08AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		87E40A7922CCC0AB001E08AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87E40A8322CCC0AB001E08AA /* ViewController.swift in Sources */,
+				8727F2DA22E1E08F00C7E908 /* ViewControllerCreate0.swift in Sources */,
+				87E40A8922CCC0AB001E08AA /* TaijukeVer_2.xcdatamodeld in Sources */,
+				87C67C2722CF178300BCEAD1 /* ViewControllerCreate1.swift in Sources */,
+				8739AE4122D4AE7400ABB29C /* CustomTableViewCell.swift in Sources */,
+				87C67C2922CF17AD00BCEAD1 /* ViewControllerCreate2.swift in Sources */,
+				87C67C2B22CF17D100BCEAD1 /* ViewControllerCreate3.swift in Sources */,
+				87E40A8122CCC0AB001E08AA /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87E40A9022CCC0AD001E08AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87E40A9922CCC0AD001E08AA /* TaijukeVer_2Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87E40A9B22CCC0AD001E08AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87E40AA422CCC0AD001E08AA /* TaijukeVer_2UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		87E40A9622CCC0AD001E08AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87E40A7C22CCC0AB001E08AA /* TaijukeVer.2 */;
+			targetProxy = 87E40A9522CCC0AD001E08AA /* PBXContainerItemProxy */;
+		};
+		87E40AA122CCC0AD001E08AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87E40A7C22CCC0AB001E08AA /* TaijukeVer.2 */;
+			targetProxy = 87E40AA022CCC0AD001E08AA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		87E40A8422CCC0AB001E08AA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				87E40A8522CCC0AB001E08AA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		87E40A8C22CCC0AD001E08AA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				87E40A8D22CCC0AD001E08AA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		87E40AA622CCC0AD001E08AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		87E40AA722CCC0AD001E08AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		87E40AA922CCC0AD001E08AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K7L94JD752;
+				INFOPLIST_FILE = TaijukeVer.2/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "iat.ees-aes.TaijukeVer-2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		87E40AAA22CCC0AD001E08AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = K7L94JD752;
+				INFOPLIST_FILE = TaijukeVer.2/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "iat.ees-aes.TaijukeVer-2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		87E40AAC22CCC0AD001E08AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TaijukeVer.2Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "iat.ees-aes.TaijukeVer-2Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TaijukeVer.2.app/TaijukeVer.2";
+			};
+			name = Debug;
+		};
+		87E40AAD22CCC0AD001E08AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TaijukeVer.2Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "iat.ees-aes.TaijukeVer-2Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TaijukeVer.2.app/TaijukeVer.2";
+			};
+			name = Release;
+		};
+		87E40AAF22CCC0AD001E08AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TaijukeVer.2UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "iat.ees-aes.TaijukeVer-2UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TaijukeVer.2;
+			};
+			name = Debug;
+		};
+		87E40AB022CCC0AD001E08AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TaijukeVer.2UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "iat.ees-aes.TaijukeVer-2UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TaijukeVer.2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		87E40A7822CCC0AB001E08AA /* Build configuration list for PBXProject "TaijukeVer.2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87E40AA622CCC0AD001E08AA /* Debug */,
+				87E40AA722CCC0AD001E08AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		87E40AA822CCC0AD001E08AA /* Build configuration list for PBXNativeTarget "TaijukeVer.2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87E40AA922CCC0AD001E08AA /* Debug */,
+				87E40AAA22CCC0AD001E08AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		87E40AAB22CCC0AD001E08AA /* Build configuration list for PBXNativeTarget "TaijukeVer.2Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87E40AAC22CCC0AD001E08AA /* Debug */,
+				87E40AAD22CCC0AD001E08AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		87E40AAE22CCC0AD001E08AA /* Build configuration list for PBXNativeTarget "TaijukeVer.2UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87E40AAF22CCC0AD001E08AA /* Debug */,
+				87E40AB022CCC0AD001E08AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		87E40A8722CCC0AB001E08AA /* TaijukeVer_2.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				87E40A8822CCC0AB001E08AA /* TaijukeVer_2.xcdatamodel */,
+			);
+			currentVersion = 87E40A8822CCC0AB001E08AA /* TaijukeVer_2.xcdatamodel */;
+			path = TaijukeVer_2.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 87E40A7522CCC0AB001E08AA /* Project object */;
+}
