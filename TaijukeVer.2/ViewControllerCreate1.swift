@@ -4,8 +4,39 @@
 //
 
 import UIKit
+import CoreBluetooth
 
-class ViewControllerCreate1: UIViewController {
+
+final class ViewControllerCreate1: UIViewController {
+    // buletooth処理 -----------------------------------------------------------------------------------------------------------------------
+    
+    //Central : 本アプリ
+    //Peripheral : 体重計
+
+    //GATTServive
+    let kServiveUUID = "0000ffb0-0000-1000-8000-00805f9b34fb"
+    
+    //GATTCharacteristc
+    let kCharacteristcUUID = "0000ffb2-0000-1000-8000-00805f9b34fb"
+    
+    var centralManager: CBCentralManager!
+    var peripheral: CBPeripheral!
+    var serviceUUID : CBUUID!
+    var charcteristicUUID: CBUUID!
+    
+    /// セントラルマネージャー、UUIDの初期化
+    private func setup() {
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+        serviceUUID = CBUUID(string: kServiveUUID)
+        charcteristicUUID = CBUUID(string: kCharacteristcUUID)
+    }
+    
+    
+    
+    
+    
+    
+    // アプリ本体 ---------------------------------------------------------------------------------------------------------------------------
     
     // TableView
     @IBOutlet weak var tableView: UITableView!
@@ -15,6 +46,12 @@ class ViewControllerCreate1: UIViewController {
     var BoxData : [String] = [""]
     // 個入り
     var QuantityData : [String] = [""]
+    // 重さ
+    var WeightData : [String] = [""]
+    
+    
+    // 重さLabel
+    @IBOutlet weak var WeightLabel: UILabel!
     
     
     // 個入り設定
@@ -105,7 +142,9 @@ class ViewControllerCreate1: UIViewController {
         }
         
         BoxData.insert(selectBox.text!, at: 0)
+        WeightData.insert(WeightLabel.text!, at: 0)
         
+        print(WeightData)
         print(QuantityData)
         print(BoxData)
         
@@ -122,6 +161,9 @@ class ViewControllerCreate1: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        // buletooth設定
+        setup()
         
         // NavigationController(上のバー)の戻るボタン消す
         self.navigationItem.hidesBackButton = true
@@ -181,6 +223,108 @@ class ViewControllerCreate1: UIViewController {
 
 
 
+// buletooth処理 -----------------------------------------------------------------------------------------------------------------------
+
+//MARK : - CBCentralManagerDelegate
+extension ViewControllerCreate1: CBCentralManagerDelegate {
+    
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        
+        switch central.state {
+            
+        //電源ONを待って、スキャンする
+        case CBManagerState.poweredOn:
+            let services: [CBUUID] = [serviceUUID]
+            centralManager?.scanForPeripherals(withServices: services,
+                                               options: nil)
+        default:
+            break
+        }
+    }
+    
+    /// ペリフェラルを発見すると呼ばれる
+    func centralManager(_ central: CBCentralManager,
+                        didDiscover peripheral: CBPeripheral,
+                        advertisementData: [String : Any],
+                        rssi RSSI: NSNumber) {
+        
+        self.peripheral = peripheral
+        centralManager?.stopScan()
+        
+        //接続開始
+        central.connect(peripheral, options: nil)
+    }
+    
+    /// 接続されると呼ばれる
+    func centralManager(_ central: CBCentralManager,
+                        didConnect peripheral: CBPeripheral) {
+        
+        peripheral.delegate = self
+        peripheral.discoverServices([serviceUUID])
+    }
+}
+
+//MARK : - CBPeripheralDelegate
+extension ViewControllerCreate1: CBPeripheralDelegate {
+    
+    /// サービス発見時に呼ばれる
+    func peripheral(_ peripheral: CBPeripheral,
+                    didDiscoverServices error: Error?) {
+        
+        if error != nil {
+            print(error.debugDescription)
+            return
+        }
+        
+        //キャリアクタリスティク探索開始
+        peripheral.discoverCharacteristics([charcteristicUUID],
+                                           for: (peripheral.services?.first)!)
+    }
+    
+    /// キャリアクタリスティク発見時に呼ばれる
+    func peripheral(_ peripheral: CBPeripheral,
+                    didDiscoverCharacteristicsFor service: CBService,
+                    error: Error?) {
+        
+        if error != nil {
+            print(error.debugDescription)
+            return
+        }
+        
+        peripheral.setNotifyValue(true,
+                                  for: (service.characteristics?.first)!)
+    }
+    
+    /// データ更新時に呼ばれる
+    func peripheral(_ peripheral: CBPeripheral,
+                    didUpdateValueFor characteristic: CBCharacteristic,
+                    error: Error?) {
+        
+        if error != nil {
+            print(error.debugDescription)
+            return
+        }
+        
+        updateWithData(data: characteristic.value!)
+    }
+    
+    private func updateWithData(data : Data) {
+        print(#function)
+        
+        let reportData = data.withUnsafeBytes {
+            [UInt8](UnsafeBufferPointer(start: $0.baseAddress!.assumingMemoryBound( to: UInt8.self ), count:8))
+        }
+        let taiju = Int(reportData[2]) * 255 + Int(reportData[3]) //+ 50 //-206
+        
+        let weight = Double(taiju) / 10.0
+        print("重さ : \(weight)")
+        // 代入する重さLabelへ
+        WeightLabel.text = String(weight)
+        
+    }
+}
+
+
 
 
 
@@ -204,7 +348,7 @@ extension ViewControllerCreate1: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
         
         // セルに表示する値を設定する
-        cell.productLabel.text = ""
+        cell.productLabel.text = WeightData[indexPath.row]
         cell.BoxLabel.text = QuantityData[indexPath.row]
         cell.QuantityLabel.text = BoxData[indexPath.row]
         
@@ -216,6 +360,7 @@ extension ViewControllerCreate1: UITableViewDelegate, UITableViewDataSource{
         // セルが編集可能な状態(削除可能）な時
         if editingStyle == .delete {
             // 選択中のCellにあるLabelを保存配列から消す
+            WeightData.remove(at: indexPath.row)
             QuantityData.remove(at: indexPath.row)
             BoxData.remove(at: indexPath.row)
             // 洗濯中のCellを削除

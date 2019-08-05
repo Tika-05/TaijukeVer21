@@ -892,6 +892,7 @@
                         <outlet property="Quantity9" destination="PHN-FQ-9Ug" id="iTA-Rk-S6W"/>
                         <outlet property="QuantityX" destination="ci0-Zk-kYY" id="r3f-0R-tke"/>
                         <outlet property="QuantityXField" destination="eAo-NZ-mgr" id="Czq-2S-egp"/>
+                        <outlet property="WeightLabel" destination="Kmw-pM-ROU" id="Y05-Zi-fNN"/>
                         <outlet property="selectBox" destination="f0o-Gg-oTd" id="PA9-UF-2gu"/>
                         <outlet property="tableView" destination="ZBe-Jf-5Pf" id="Mvk-Ie-rMG"/>
                     </connections>
