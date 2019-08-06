@@ -8,6 +8,8 @@ import CoreBluetooth
 
 
 final class ViewControllerCreate1: UIViewController {
+    
+    
     // buletooth処理 -----------------------------------------------------------------------------------------------------------------------
     
     //Central : 本アプリ
@@ -198,6 +200,7 @@ final class ViewControllerCreate1: UIViewController {
         
         // 送る配列   (カゴの個入り　行き先の名前　カゴの数)
         var BoxAllData = [[String]]()
+        BoxAllData.append(WeightData)
         BoxAllData.append(QuantityData)
         BoxAllData.append(BoxData)
         

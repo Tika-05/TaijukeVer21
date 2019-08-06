@@ -1450,6 +1450,7 @@
                         <outlet property="Quantity9" destination="RaR-Mn-lLf" id="Akn-nA-CIR"/>
                         <outlet property="QuantityX" destination="bwx-da-2V9" id="hXP-gy-QXf"/>
                         <outlet property="QuantityXField" destination="pww-s8-EgH" id="GPe-5a-utH"/>
+                        <outlet property="WeightLabel2" destination="JDN-KG-gkf" id="otE-oK-PQa"/>
                         <outlet property="selectAnyProduct" destination="4TZ-l0-mCU" id="dlz-Xh-csD"/>
                         <outlet property="tableView" destination="1vg-lY-iWZ" id="W3V-Lp-SAL"/>
                     </connections>

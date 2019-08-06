@@ -24,6 +24,8 @@ class ViewControllerCreate3: UIViewController {
         
         print("カゴのデータ \(BoxAllData) ")
         print("鯛のデータ \(productAllData) ")
+        
+        print()
     }
     
 
