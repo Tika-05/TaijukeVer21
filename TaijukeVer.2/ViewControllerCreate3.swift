@@ -21,6 +21,9 @@ class ViewControllerCreate3: UIViewController {
         
         // NavigationController(上のバー)の戻るボタン消す
         self.navigationItem.hidesBackButton = true
+        
+        print("カゴのデータ \(BoxAllData) ")
+        print("鯛のデータ \(productAllData) ")
     }
     
 

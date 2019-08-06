@@ -162,9 +162,8 @@ class ViewControllerCreate2: UIViewController {
         
         // 送る配列   (商品の個入り　行き先の名前)
         var productAllData = [[String]]()
-//        BoxAllData.append(QuantityData)
-//        BoxAllData.append(NameData)
-//        BoxAllData.append(BoxData)
+        productAllData.append(QuantityData)
+        productAllData.append(AnyProductData)
         
         // 別のView に送信
         // "toCreate2ViewSegue"の名前の遷移のとき発動
