@@ -317,7 +317,20 @@ extension ViewControllerCreate1: CBPeripheralDelegate {
         let reportData = data.withUnsafeBytes {
             [UInt8](UnsafeBufferPointer(start: $0.baseAddress!.assumingMemoryBound( to: UInt8.self ), count:8))
         }
-        let taiju = Int(reportData[2]) * 255 + Int(reportData[3]) //+ 50 //-206
+        
+        var taiju = Int(reportData[2]) * 255 + Int(reportData[3])
+//
+//        if Double(taiju) == 64515 {
+//            Thread.sleep(forTimeInterval: 10.0)
+//        }else if Double(taiju) == 64516 {
+//            taiju = 0
+//        }else if Double(taiju) == 64785 {
+//            taiju = 0
+//        }else if Double(taiju) == 64771{
+//            taiju = 0
+//        }
+//
+//
         
         let weight = Double(taiju) / 10.0
         print("重さ : \(weight)")
