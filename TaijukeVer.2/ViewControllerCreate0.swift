@@ -6,6 +6,8 @@
 //  Copyright © 2019 sea&see. All rights reserved.
 //
 
+//トキヤ参上致した
+
 import UIKit
 
 class ViewControllerCreate0: UIViewController {
