@@ -15,7 +15,8 @@ class ViewControllerOpen1: UIViewController {
     @IBOutlet weak var f2: UITextField!
     @IBOutlet weak var f3: UITextField!
     
-    
+    // csvファイルの中身を格納する配列
+    var csvLines = [String]()
     
     
     
@@ -28,24 +29,7 @@ class ViewControllerOpen1: UIViewController {
             return
         }
         
-        
-        
-        
-        
-        // 更新する
-        //CSVファイルの保存先
-        var userPath:String!
-        
-        let fileManager = FileManager()
-        //        let fileManager = NSFileManager()
-        
-        
-        
-        
-        
         // csvファイル取り出す
-        // csvファイルの中身を格納する配列
-        var csvLines = [String]()
         // csvファイルが空なら失敗
         do {
             // csvファイルの中身をStrrin型へ変更
@@ -60,14 +44,14 @@ class ViewControllerOpen1: UIViewController {
         }
         
         // 表示する
-        for animalData in csvLines {
+        for DataList in csvLines {
             // コンマごとに配列に格納する
-            let animalDetail = animalData.components(separatedBy: ",")
-            print("【ゲーム名】\(animalDetail[0])　【伝説ポケモン】\(animalDetail[1]) 様　【地方】\(animalDetail[2]) 地方")
+            let data = DataList.components(separatedBy: ",")
+            print("【ゲーム名】\(data[0])　【伝説ポケモン】\(data[1]) 様　【地方】\(data[2]) 地方")
         }
         
         
-        
+        // テキストフィールドに表示する
         f1.text = csvLines[0]
         f2.text = csvLines[1]
         f3.text = csvLines[2]
