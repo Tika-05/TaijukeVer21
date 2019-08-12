@@ -146,6 +146,7 @@ final class ViewControllerCreate1: UIViewController {
         BoxData.insert(selectBox.text!, at: 0)
         WeightData.insert(WeightLabel.text!, at: 0)
         
+        print("カゴ保存")
         print(WeightData)
         print(QuantityData)
         print(BoxData)

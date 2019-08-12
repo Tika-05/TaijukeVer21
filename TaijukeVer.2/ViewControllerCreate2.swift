@@ -154,6 +154,7 @@ class ViewControllerCreate2: UIViewController {
         AnyProductData.insert(selectAnyProduct.text!, at: 0)
         WeightData.insert(WeightLabel2.text!, at: 0)
         
+        print("商品保存")
         print(WeightData)
         print(QuantityData)
         print(AnyProductData)
@@ -174,6 +175,7 @@ class ViewControllerCreate2: UIViewController {
         // buletooth設定
         setup()
         
+        print("受け取りカゴデータ")
         print(BoxAllData)
         
         

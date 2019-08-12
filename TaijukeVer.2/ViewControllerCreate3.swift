@@ -19,6 +19,22 @@ class ViewControllerCreate3: UIViewController {
     // 日付ラベル
     @IBOutlet weak var dateLabel: UILabel!
     
+    // 最終的に保存するデータ
+    var SavedData = [[Double]]()
+    
+//    //UserDefaults
+//    func DataSaved(){
+//        // データ保存するための
+//        let userdefaults = UserDefaults()
+//        // 保存
+//        print("ほぞん")
+//        userdefaults.set(SavedData, forKey:"data")
+//        // 取り出す
+//        print("取り出す")
+//        let retreivedData = userdefaults.value(forKey:"data") as! [[Double]]
+//        print(retreivedData)
+//    }
+    
     
     // 初期動作
     override func viewDidLoad() {
@@ -63,7 +79,9 @@ class ViewControllerCreate3: UIViewController {
                 QuantityCheck.append(Int(list) ?? 0)
             }
         }
+        print("個数配列の")
         print(QuantityCheck)
+        
         
         
         // 列 ヘッダー
@@ -75,13 +93,13 @@ class ViewControllerCreate3: UIViewController {
             case 2:
                 Thead.text = String("カゴ入")
             case 3:
-                Thead.text = String("重量")
+                Thead.text = String("総重量")
             case 4:
-                Thead.text = String("風袋")
+                Thead.text = String("カゴ")
             case 5:
                 Thead.text = String("水引き")
             case 6:
-                Thead.text = String("総重量")
+                Thead.text = String("商品重量")
             case 7:
                 Thead.text = String("平均")
             default:
@@ -96,21 +114,25 @@ class ViewControllerCreate3: UIViewController {
         
         
         // 中身
+        // 一列のデータをまとめる
+        // [0]総尾数　[1]カゴ入り　[2]商品とカゴ重量　[3]カゴ重量　[4]水引き　[5]商品重量　[6]平均重量
+        var ColumnData = [Double]()
         // y 列
         for y in 0 ... QuantityCheck.count-1{
             
-            // 個数
-            var Quantity = 0
-            /// 重さ
-            var Weight = 0.0
-            // カゴの重さ
-            var BoxW = 0.0
-            // 水引き
-            let waterCut = 0.96
-            // 商品だけの重さ
-            var ProductW = 0.0
-            // 平均の重さ
-            var AverageW = 0.0
+            ColumnData = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,]
+//            // 個数
+//            var Quantity = 0
+//            /// 重さ
+//            var Weight = 0.0
+//            // カゴの重さ
+//            var BoxW = 0.0
+//            // 水引き
+//            let waterCut = 0.96
+//            // 商品だけの重さ
+//            var ProductW = 0.0
+//            // 平均の重さ
+//            var AverageW = 0.0
             
             // x 行
             for x in 1...7 {
@@ -127,50 +149,52 @@ class ViewControllerCreate3: UIViewController {
                         // 同じ個数入りの総尾数を求めるから  個数確認の配列から照合する
                         if Int(list) == QuantityCheck[y] {
                             if productAllData[2][count] == "" {
-                                Quantity += QuantityCheck[y]
+                                ColumnData[0] += Double(QuantityCheck[y])
                             }else{ // 半端数の時
-                                Quantity += Int(productAllData[2][count]) ?? 0
+                                ColumnData[0] += Double(productAllData[2][count]) ?? 0
                             }
                         }
                         count += 1
                     }
-                    TField.text = String(Quantity)
+                    TField.text = String(ColumnData[0])
                     break
                 case 2: // 個入り
-                    TField.text = "\(String(QuantityCheck[y]))入"
+                    ColumnData[1] = Double(QuantityCheck[y])
+                    TField.text = "\(String(ColumnData[1]))入"
                     break
                 case 3: // 商品とかごの総重量
                     var count = 0
                     for list in productAllData[1]{
                         // 同じ個数入りの総重量を求めるから  個数確認の配列から照合する
                         if Int(list) == QuantityCheck[y] {
-                            Weight += Double(productAllData[0][count]) ?? 0
+                            ColumnData[2] += Double(productAllData[0][count]) ?? 0
                         }
                         count += 1
                     }
-                    TField.text = String(Weight)
+                    TField.text = String(ColumnData[2])
                     break
                 case 4: // カゴ総重量
                     var count = 0
                     for list in BoxAllData[1]{
                         // 同じ個数入りの総重量を求めるから  個数確認の配列から照合する
                         if Int(list) == QuantityCheck[y] {
-                            BoxW += Double(BoxAllData[0][count]) ?? 0
+                            ColumnData[3] += Double(BoxAllData[0][count]) ?? 0
                         }
                         count += 1
                     }
-                    TField.text = String(BoxW)
+                    TField.text = String(ColumnData[3])
                     break
                 case 5: // 水引き
-                    TField.text = String(waterCut)
+                    ColumnData[4] = 0.96
+                    TField.text = String(ColumnData[4])
                     break
                 case 6: // 商品だけの総重量
-                    ProductW = (Weight - BoxW) * waterCut
-                    TField.text = String(ProductW)
+                    ColumnData[5] = (ColumnData[2] - ColumnData[3]) * ColumnData[4]
+                    TField.text = String(ColumnData[5])
                     break
                 case 7: // 商品だけの平均
-                    AverageW = ProductW / Double(Quantity)
-                    TField.text = String(AverageW)
+                    ColumnData[6] = ColumnData[5] / Double(ColumnData[0])
+                    TField.text = String(ColumnData[6])
                     break
                 default:
                     TField.text = String("error")
@@ -201,10 +225,14 @@ class ViewControllerCreate3: UIViewController {
                 Tmark.textAlignment = NSTextAlignment.center
                 Tmark.textColor = UIColor.black
                 self.view.addSubview(Tmark)
+                
+            }
+            if ColumnData[0] != 0 {
+                // 保存用の配列に入れる
+                SavedData.append(ColumnData)
             }
         }
-        
-        
+        print("送信する")
         
     }
     
