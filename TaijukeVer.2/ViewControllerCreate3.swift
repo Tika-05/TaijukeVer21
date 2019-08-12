@@ -16,6 +16,9 @@ class ViewControllerCreate3: UIViewController {
     // [0]商品の重さ  [1]カゴの個入り　[2]半端数
     var productAllData = [[String]]()
 
+    // 日付ラベル
+    @IBOutlet weak var dateLabel: UILabel!
+    
     
     // 初期動作
     override func viewDidLoad() {
@@ -28,6 +31,17 @@ class ViewControllerCreate3: UIViewController {
         print("鯛のデータ \(productAllData) ")
         
         print()
+        
+        
+        //現在の日付を取得
+        let date:Date = Date()
+        //日付のフォーマットを指定する。
+        let format = DateFormatter()
+        format.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        //日付をStringに変換する
+        let sDate = format.string(from: date)
+        dateLabel.text = sDate
+        print(sDate)
         
         
         
