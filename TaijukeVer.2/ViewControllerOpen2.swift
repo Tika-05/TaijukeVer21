@@ -18,12 +18,13 @@ class ViewControllerOpen2: UIViewController {
     var Sdata:[SData] = []
     // 永続的にデータが保存されている場所みたいな マネージドオブジェクトコンテキスト
     var MOCT = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    //NSFetchRequestを使って「任意のEntityの全データを取得する」という取得条件を変数に打ち込む
+    let conditionsData = NSFetchRequest<NSFetchRequestResult>(entityName: "SData")
     
+    // coredataのデータ読み込む
     func readCoreData(){
         // 開く条件を設定した時に 前のViewで
         if(OpenCheck[0] != "") {
-            //NSFetchRequestを使って「任意のEntityの全データを取得する」という取得条件を変数に打ち込む
-            let conditionsData = NSFetchRequest<NSFetchRequestResult>(entityName: "SData")
             //属性date,destination,producerが検索文字列と一致するデータをフェッチ対象にする。 (SQLみたいに)
             conditionsData.predicate = NSPredicate(format:"date = %@ and destination = %@ and producer = %@", OpenCheck[0], OpenCheck[1], OpenCheck[2])
             // フェッチする
@@ -35,8 +36,38 @@ class ViewControllerOpen2: UIViewController {
                 print("エラーだよ")
             }
         }
-        
-        
+    }
+    
+    // coredataのデータを更新する
+    func updateCoredata(){
+        // テキストフィールドにタグをつける    例 上から２段目に表示されたcoredataのデータのカゴの重さ　[1].cageWei <- 13
+        for x in 0 ..< Sdata.count{
+            // [0]総尾数　[1]カゴ入り　[2]商品とカゴ重量　[3]カゴ重量　[4]水引き　[5]商品重量　[6]平均重量
+            
+            // [1]カゴ入り 数字と文字があるから -> 1.0入    入を消す
+            var moji = String(ArrayTextField[x][1].text!)
+            if let range = moji.range(of: "入") {
+                moji.replaceSubrange(range, with: "")
+                ArrayTextField[x][1].text = moji
+            }
+            
+            Sdata[x].allNum = Double(ArrayTextField[x][0].text ?? "") ?? 0
+            Sdata[x].num = Double(ArrayTextField[x][1].text ?? "") ?? 0
+            Sdata[x].allWei = Double(ArrayTextField[x][2].text ?? "") ?? 0
+            Sdata[x].cageWei = Double(ArrayTextField[x][3].text ?? "") ?? 0
+            Sdata[x].waterCut = Double(ArrayTextField[x][4].text ?? "") ?? 0
+            Sdata[x].proWei = Double(ArrayTextField[x][5].text ?? "") ?? 0
+            Sdata[x].average = Double(ArrayTextField[x][6].text ?? "") ?? 0
+            // 行き先 生産者
+            Sdata[x].destination = destinationLabel.text
+            Sdata[x].producer = producerLabel.text
+        }
+        // データ更新
+        do{
+            try MOCT.save()
+        }catch{
+            print(error)
+        }
     }
     
     
@@ -49,6 +80,14 @@ class ViewControllerOpen2: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var destinationLabel: UITextField!
     @IBOutlet weak var producerLabel: UITextField!
+    
+    // coredataのデータアップデートする
+    @IBAction func updateBtn(_ sender: Any) {
+        updateCoredata()
+    }
+    
+    // 全てのテキストフィールドをまとめて管理配列
+    var ArrayTextField = [[UITextField]]()
     
     
     override func viewDidLoad() {
@@ -99,6 +138,8 @@ class ViewControllerOpen2: UIViewController {
         // 中身
         // y 列
         for y in 0 ..< Sdata.count{
+            // 列のテキストフィールドをまとめる配列
+            var ColumnTextField = [UITextField]()
             // x 行
             for x in 1...7 {
                 // 値表示TextField
@@ -110,27 +151,35 @@ class ViewControllerOpen2: UIViewController {
                 switch x{
                 case 1: // 総尾数
                     TField.text = String(Sdata[y].allNum)
+                    ColumnTextField.append(TField)
                     break
                 case 2: // 個入り
                     TField.text = "\(String(Sdata[y].num))入"
+                    ColumnTextField.append(TField)
                     break
                 case 3: // 商品とかごの総重量
                     TField.text = String(Sdata[y].allWei)
+                    ColumnTextField.append(TField)
                     break
                 case 4: // カゴ総重量
                     TField.text = String(Sdata[y].cageWei)
+                    ColumnTextField.append(TField)
                     break
                 case 5: // 水引き
                     TField.text = String(Sdata[y].waterCut)
+                    ColumnTextField.append(TField)
                     break
                 case 6: // 商品だけの総重量
                     TField.text = String(Sdata[y].proWei)
+                    ColumnTextField.append(TField)
                     break
                 case 7: // 商品だけの平均
                     TField.text = String(Sdata[y].average)
+                    ColumnTextField.append(TField)
                     break
                 default:
                     TField.text = String("error")
+                    ColumnTextField.append(TField)
                 }
                 self.view.addSubview(TField)
                 
@@ -158,10 +207,10 @@ class ViewControllerOpen2: UIViewController {
                 Tmark.textAlignment = NSTextAlignment.center
                 Tmark.textColor = UIColor.black
                 self.view.addSubview(Tmark)
-                
             }
+            // 全てのテキストフィールドを管理する配列に格納
+            ArrayTextField.append(ColumnTextField)
         }
-        
         
     }
     

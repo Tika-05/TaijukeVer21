@@ -428,6 +428,10 @@
                                 <state key="normal" title="　　　　 保存  →">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="updateBtn:" destination="30Y-mW-nAM" eventType="touchUpInside" id="DWa-8o-W6R"/>
+                                    <segue destination="1Op-PR-t0I" kind="unwind" unwindAction="backToTopWithSegue:" id="gO4-qt-iyn"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="日付" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNw-UJ-IDd">
                                 <rect key="frame" x="87" y="83" width="594" height="38"/>

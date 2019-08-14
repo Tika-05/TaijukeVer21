@@ -18,21 +18,28 @@ class ViewControllerCreate3: UIViewController {
     
     // 保存ボタン押された時
     @IBAction func addBtn(_ sender: Any) {
-        for list in SavedData {
+        for x in 0 ..< ArrayTextField.count {
             //フィールドで作ったマネージドオブジェクトコンテキスト内にData型のマネージドオブジェクトを作る
             let newObject = SData(context: self.MOCT)
             //新規オブジェクトのそれぞれのプロパティに上書き
             // [0]総尾数　[1]カゴ入り　[2]商品とカゴ重量　[3]カゴ重量　[4]水引き　[5]商品重量　[6]平均重量
-            newObject.allNum = list[0]
-            newObject.num = list[1]
-            newObject.allWei = list[2]
-            newObject.cageWei = list[3]
-            newObject.waterCut = list[4]
-            newObject.proWei = list[5]
-            newObject.average = list[6]
-            // [0]行き先 [1]生産者
-            newObject.destination = NameData[0]
-            newObject.producer = NameData[1]
+            // [1]カゴ入り 数字と文字があるから -> 1.0入    入を消す
+            var moji = String(ArrayTextField[x][1].text!)
+            if let range = moji.range(of: "入") {
+                moji.replaceSubrange(range, with: "")
+                ArrayTextField[x][1].text = moji
+            }
+            
+            newObject.allNum = Double(ArrayTextField[x][0].text ?? "") ?? 0
+            newObject.num = Double(ArrayTextField[x][1].text ?? "") ?? 0
+            newObject.allWei = Double(ArrayTextField[x][2].text ?? "") ?? 0
+            newObject.cageWei = Double(ArrayTextField[x][3].text ?? "") ?? 0
+            newObject.waterCut = Double(ArrayTextField[x][4].text ?? "") ?? 0
+            newObject.proWei = Double(ArrayTextField[x][5].text ?? "") ?? 0
+            newObject.average = Double(ArrayTextField[x][6].text ?? "") ?? 0
+            // 行き先 生産者
+            newObject.destination = destination.text
+            newObject.producer = producer.text
             // 保存日付
             newObject.date = dateLabel.text
         }
@@ -53,15 +60,16 @@ class ViewControllerCreate3: UIViewController {
     var productAllData = [[String]]()
     // [0]行き先　[1]生産者  <- 保存する
     var NameData = [String]()
-
-    // 最終的に保存するデータ <- 保存する
-    var SavedData = [[Double]]()
+    
     
     // 日付ラベル
     @IBOutlet weak var dateLabel: UILabel!
     // 行き先　生産者 テキストフィールド
     @IBOutlet weak var destination: UITextField!
     @IBOutlet weak var producer: UITextField!
+    
+    // 全てのテキストフィールドをまとめて管理配列
+    var ArrayTextField = [[UITextField]]()
     
     
     // 初期動作
@@ -95,7 +103,6 @@ class ViewControllerCreate3: UIViewController {
         // 何個入りのカゴ使われたか確認
         // 今回使われた何個入りをまとめる
         var QuantityCheck = [Int]()
-        QuantityCheck.append(0)
         for list in productAllData[1]{
             // 同じ個数入りあるかどうか
             var flag = false
@@ -148,10 +155,13 @@ class ViewControllerCreate3: UIViewController {
         // 一列のデータをまとめる
         // [0]総尾数　[1]カゴ入り　[2]商品とカゴ重量　[3]カゴ重量　[4]水引き　[5]商品重量　[6]平均重量
         var ColumnData = [Double]()
+        
         // y 列
         for y in 0 ..< QuantityCheck.count{
             
             ColumnData = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,]
+            // 列のテキストフィールドをまとめる配列 テキストフィールドの中が変更されてもいいように
+            var ColumnTextField = [UITextField]()
             
             // x 行
             for x in 1...7 {
@@ -176,10 +186,12 @@ class ViewControllerCreate3: UIViewController {
                         count += 1
                     }
                     TField.text = String(ColumnData[0])
+                    ColumnTextField.append(TField)
                     break
                 case 2: // 個入り
                     ColumnData[1] = Double(QuantityCheck[y])
                     TField.text = "\(String(ColumnData[1]))入"
+                    ColumnTextField.append(TField)
                     break
                 case 3: // 商品とかごの総重量
                     var count = 0
@@ -191,6 +203,7 @@ class ViewControllerCreate3: UIViewController {
                         count += 1
                     }
                     TField.text = String(ColumnData[2])
+                    ColumnTextField.append(TField)
                     break
                 case 4: // カゴ総重量
                     var count = 0
@@ -202,21 +215,26 @@ class ViewControllerCreate3: UIViewController {
                         count += 1
                     }
                     TField.text = String(ColumnData[3])
+                    ColumnTextField.append(TField)
                     break
                 case 5: // 水引き
                     ColumnData[4] = 0.96
                     TField.text = String(ColumnData[4])
+                    ColumnTextField.append(TField)
                     break
                 case 6: // 商品だけの総重量
                     ColumnData[5] = (ColumnData[2] - ColumnData[3]) * ColumnData[4]
                     TField.text = String(ColumnData[5])
+                    ColumnTextField.append(TField)
                     break
                 case 7: // 商品だけの平均
                     ColumnData[6] = ColumnData[5] / Double(ColumnData[0])
                     TField.text = String(ColumnData[6])
+                    ColumnTextField.append(TField)
                     break
                 default:
                     TField.text = String("error")
+                    ColumnTextField.append(TField)
                 }
                 self.view.addSubview(TField)
                 
@@ -246,10 +264,8 @@ class ViewControllerCreate3: UIViewController {
                 self.view.addSubview(Tmark)
                 
             }
-            if ColumnData[0] != 0 {
-                // 保存用の配列に入れる
-                SavedData.append(ColumnData)
-            }
+            // 全てのテキストフィールドを管理する配列に格納
+            ArrayTextField.append(ColumnTextField)
         }
         print("送信する")
         

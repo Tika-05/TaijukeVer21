@@ -165,15 +165,16 @@ extension ViewControllerOpen1: UITableViewDelegate, UITableViewDataSource{
     
     // 行の挿入または削除をコミットするようにデータソースに要求する時に発動
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // coredata のデータを消す
+        deleteCoreData(array: tableV[indexPath.row])
+        
         // セルが編集可能な状態(削除可能）な時
         if editingStyle == .delete {
             // 選択中のCellにあるLabelを保存配列から消す
             tableV.remove(at: indexPath.row)
             // 洗濯中のCellを削除
             tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            // coredata のデータを消す
-            deleteCoreData(array: tableV[indexPath.row])
+
         }
     }
 }
