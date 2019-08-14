@@ -1663,6 +1663,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="addBtn:" destination="xFU-5R-eoh" eventType="touchUpInside" id="aCX-qD-Mgy"/>
                                     <segue destination="x5g-ow-229" kind="unwind" unwindAction="backToTopWithSegue:" id="4gS-vo-f7N"/>
                                 </connections>
                             </button>

@@ -7,24 +7,58 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewControllerCreate3: UIViewController {
     
+    // coredata 設定 ------------------------------------------------------------------------------------------------------------------------
+    
+    // 永続的にデータが保存されている場所みたいな マネージドオブジェクトコンテキスト
+    var MOCT = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    // 保存ボタン押された時
+    @IBAction func addBtn(_ sender: Any) {
+        for list in SavedData {
+            //フィールドで作ったマネージドオブジェクトコンテキスト内にData型のマネージドオブジェクトを作る
+            let newObject = SData(context: self.MOCT)
+            //新規オブジェクトのそれぞれのプロパティに上書き
+            // [0]総尾数　[1]カゴ入り　[2]商品とカゴ重量　[3]カゴ重量　[4]水引き　[5]商品重量　[6]平均重量
+            newObject.allNum = list[0]
+            newObject.num = list[1]
+            newObject.allWei = list[2]
+            newObject.cageWei = list[3]
+            newObject.waterCut = list[4]
+            newObject.proWei = list[5]
+            newObject.average = list[6]
+            // [0]行き先 [1]生産者
+            newObject.destination = NameData[0]
+            newObject.producer = NameData[1]
+            // 保存日付
+            newObject.date = dateLabel.text
+        }
+        //appdelegateのsaveContextメソッドを使って保存
+        //saveContextは現在のマネージドオブジェクトの変更内容をDBに反映する
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+    }
+    
+    
+    
+    // 本体 ---------------------------------------------------------------------------------------------------------------------------------
+    
     // ViewControllerCreate2Viewから  名前のデータ配列　カゴのデータの配列  商品のデータ配列
-    // [0]行き先　[1]生産者
-    var NameData = [String]()
     // [0]カゴの重さ  [1]カゴの個入り　[2]カゴの数
     var BoxAllData = [[String]]()
     // [0]商品の重さ  [1]カゴの個入り　[2]半端数
     var productAllData = [[String]]()
+    // [0]行き先　[1]生産者  <- 保存する
+    var NameData = [String]()
 
+    // 最終的に保存するデータ <- 保存する
+    var SavedData = [[Double]]()
     
     // 日付ラベル
     @IBOutlet weak var dateLabel: UILabel!
-    
-    
-    // 最終的に保存するデータ
-    var SavedData = [[Double]]()
     
     
     // 初期動作
