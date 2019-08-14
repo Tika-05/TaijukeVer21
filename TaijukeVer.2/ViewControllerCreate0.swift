@@ -21,6 +21,8 @@ class ViewControllerCreate0: UIViewController {
     var arrayPickName : [String] = ["","羽山","川島","マルタ","丸銀"]
     // 選択中の入力する行先
     @IBOutlet weak var selectName: UITextField!
+    // 生産者
+    @IBOutlet weak var selectName2: UITextField!
     
     
     // 名前選択ボタン押した時発動
@@ -47,6 +49,22 @@ class ViewControllerCreate0: UIViewController {
     }
     
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // 送る配列   (行き先　生産者)
+        var NameData = [String]()
+        NameData.append(selectName.text ?? "")
+        NameData.append(selectName2.text ?? "")
+        
+        // 別のView に送信
+        // "toCreate2ViewSegue"の名前の遷移のとき発動
+        if (segue.identifier == "toCreate1ViewSegue") {
+            // ViewControllerCreate2 の変数を持ってくる？
+            let vc: ViewControllerCreate1 = segue.destination as! ViewControllerCreate1
+            vc.NameData = NameData
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

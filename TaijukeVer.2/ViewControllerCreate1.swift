@@ -40,6 +40,11 @@ final class ViewControllerCreate1: UIViewController {
     
     // アプリ本体 ---------------------------------------------------------------------------------------------------------------------------
     
+    
+    // 受け取りデータ
+    // 行き先 生産者
+    var NameData = [String]()
+    
     // TableView
     @IBOutlet weak var tableView: UITableView!
     
@@ -210,6 +215,7 @@ final class ViewControllerCreate1: UIViewController {
         if (segue.identifier == "toCreate2ViewSegue") {
             // ViewControllerCreate2 の変数を持ってくる？
             let vc: ViewControllerCreate2 = segue.destination as! ViewControllerCreate2
+            vc.NameData = NameData
             vc.BoxAllData = BoxAllData
         }
     }

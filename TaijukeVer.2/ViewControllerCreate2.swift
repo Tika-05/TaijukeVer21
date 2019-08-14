@@ -38,7 +38,9 @@ class ViewControllerCreate2: UIViewController {
     
     // アプリ本体 ---------------------------------------------------------------------------------------------------------------------------
     
-    // ViewControllerCreateViewからのカゴのデータの配列
+    // ViewControllerCreateViewからのデータの配列
+    // 行き先　生産者
+    var NameData = [String]()
     // [0]カゴの個入り　[1]行き先の名前　[2]カゴの数
     var BoxAllData = [[String]]()
 
@@ -215,6 +217,7 @@ class ViewControllerCreate2: UIViewController {
         if (segue.identifier == "toCreate3ViewSegue") {
             // ViewControllerCreate2 の変数を持ってくる？
             let vc: ViewControllerCreate3 = segue.destination as! ViewControllerCreate3
+            vc.NameData = NameData
             vc.BoxAllData = BoxAllData
             vc.productAllData = productAllData
         }

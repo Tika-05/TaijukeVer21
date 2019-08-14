@@ -10,14 +10,18 @@ import UIKit
 
 class ViewControllerCreate3: UIViewController {
     
-    // ViewControllerCreate2Viewから  カゴのデータの配列  商品のデータ配列
+    // ViewControllerCreate2Viewから  名前のデータ配列　カゴのデータの配列  商品のデータ配列
+    // [0]行き先　[1]生産者
+    var NameData = [String]()
     // [0]カゴの重さ  [1]カゴの個入り　[2]カゴの数
     var BoxAllData = [[String]]()
     // [0]商品の重さ  [1]カゴの個入り　[2]半端数
     var productAllData = [[String]]()
 
+    
     // 日付ラベル
     @IBOutlet weak var dateLabel: UILabel!
+    
     
     // 最終的に保存するデータ
     var SavedData = [[Double]]()
@@ -45,15 +49,14 @@ class ViewControllerCreate3: UIViewController {
         
         print("カゴのデータ \(BoxAllData) ")
         print("鯛のデータ \(productAllData) ")
-        
-        print()
+        print("名前のデータ \(NameData)")
         
         
         //現在の日付を取得
         let date:Date = Date()
         //日付のフォーマットを指定する。
         let format = DateFormatter()
-        format.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        format.dateFormat = "yyyy/MM/dd"
         //日付をStringに変換する
         let sDate = format.string(from: date)
         dateLabel.text = sDate
