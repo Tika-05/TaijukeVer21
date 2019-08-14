@@ -25,6 +25,7 @@
 		87E40A8E22CCC0AD001E08AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87E40A8C22CCC0AD001E08AA /* LaunchScreen.storyboard */; };
 		87E40A9922CCC0AD001E08AA /* TaijukeVer_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E40A9822CCC0AD001E08AA /* TaijukeVer_2Tests.swift */; };
 		87E40AA422CCC0AD001E08AA /* TaijukeVer_2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E40AA322CCC0AD001E08AA /* TaijukeVer_2UITests.swift */; };
+		87EB6E13230429AD00BC3BC9 /* ViewControllerOpen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EB6E12230429AD00BC3BC9 /* ViewControllerOpen2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		87E40A9F22CCC0AD001E08AA /* TaijukeVer.2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaijukeVer.2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		87E40AA322CCC0AD001E08AA /* TaijukeVer_2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaijukeVer_2UITests.swift; sourceTree = "<group>"; };
 		87E40AA522CCC0AD001E08AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87EB6E12230429AD00BC3BC9 /* ViewControllerOpen2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerOpen2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				87C67C2822CF17AD00BCEAD1 /* ViewControllerCreate2.swift */,
 				87C67C2A22CF17D100BCEAD1 /* ViewControllerCreate3.swift */,
 				87C7153E22F9A2D000EDDB6B /* ViewControllerOpen1.swift */,
+				87EB6E12230429AD00BC3BC9 /* ViewControllerOpen2.swift */,
 				87E40A8422CCC0AB001E08AA /* Main.storyboard */,
 				875E83E822E2B55D00388BA0 /* Images */,
 				87C7153B22F9A06D00EDDB6B /* csvfile */,
@@ -314,6 +317,7 @@
 				87E40A8922CCC0AB001E08AA /* TaijukeVer_2.xcdatamodeld in Sources */,
 				87C67C2722CF178300BCEAD1 /* ViewControllerCreate1.swift in Sources */,
 				8739AE4122D4AE7400ABB29C /* CustomTableViewCell.swift in Sources */,
+				87EB6E13230429AD00BC3BC9 /* ViewControllerOpen2.swift in Sources */,
 				87C67C2922CF17AD00BCEAD1 /* ViewControllerCreate2.swift in Sources */,
 				87C67C2B22CF17D100BCEAD1 /* ViewControllerCreate3.swift in Sources */,
 				87C7153F22F9A2D000EDDB6B /* ViewControllerOpen1.swift in Sources */,

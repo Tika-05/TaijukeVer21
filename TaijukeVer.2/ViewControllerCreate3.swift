@@ -59,6 +59,9 @@ class ViewControllerCreate3: UIViewController {
     
     // 日付ラベル
     @IBOutlet weak var dateLabel: UILabel!
+    // 行き先　生産者 テキストフィールド
+    @IBOutlet weak var destination: UITextField!
+    @IBOutlet weak var producer: UITextField!
     
     
     // 初期動作
@@ -83,6 +86,10 @@ class ViewControllerCreate3: UIViewController {
         dateLabel.text = sDate
         print(sDate)
         
+        
+        // 行き先　生産者　表示
+        destination.text = NameData[0]
+        producer.text = NameData[1]
         
         
         // 何個入りのカゴ使われたか確認
@@ -142,7 +149,7 @@ class ViewControllerCreate3: UIViewController {
         // [0]総尾数　[1]カゴ入り　[2]商品とカゴ重量　[3]カゴ重量　[4]水引き　[5]商品重量　[6]平均重量
         var ColumnData = [Double]()
         // y 列
-        for y in 0 ... QuantityCheck.count-1{
+        for y in 0 ..< QuantityCheck.count{
             
             ColumnData = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,]
             

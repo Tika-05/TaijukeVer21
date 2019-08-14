@@ -45,7 +45,7 @@ class ViewControllerCreate0: UIViewController {
         // ナビゲーションバーの影画像（境界線の画像）を空に設定
         self.navigationController!.navigationBar.shadowImage = UIImage()
 
-        // Do any additional setup after loading the view.
+        
     }
     
 
