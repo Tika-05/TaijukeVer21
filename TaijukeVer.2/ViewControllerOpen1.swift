@@ -19,9 +19,10 @@ class ViewControllerOpen1: UIViewController {
     // 永続的にデータが保存されている場所みたいな マネージドオブジェクトコンテキスト
     var MOCT = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    //NSFetchRequestを使って「任意のEntityの全データを取得する」という取得条件を変数に打ち込む
+    let conditionsData = NSFetchRequest<NSFetchRequestResult>(entityName: "SData")
+    
     func readCoreData(){
-        //NSFetchRequestを使って「任意のEntityの全データを取得する」という取得条件を変数に打ち込む
-        let conditionsData = NSFetchRequest<NSFetchRequestResult>(entityName: "SData")
         do{
             //マネージドオブジェクトコンテキストのfetchに先ほどの取得条件を食わせて、返ってきたデータをSData型に強制ダウンキャスト
             //取得したデータを入れる
@@ -29,6 +30,25 @@ class ViewControllerOpen1: UIViewController {
         }catch{
             print("エラーだよ")
         }
+    }
+    
+    // coredata のデータを消す
+    func deleteCoreData(array : [String]){
+        //属性date,destination,producerが検索文字列と一致するデータをフェッチ対象にする。 (SQLみたいに)
+        conditionsData.predicate = NSPredicate(format:"date = %@ and destination = %@ and producer = %@", array[0], array[1], array[2])
+        do {
+            //取得したデータを入れる 消すデータ
+            let Ddata = try MOCT.fetch(conditionsData) as! [SData]
+            for task in Ddata{
+                // データ消す
+                MOCT.delete(task)
+            }
+        } catch {
+            print("Fetching Failed.")
+        }
+        // 削除したあとのデータを保存する
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
     }
     
     
@@ -143,16 +163,17 @@ extension ViewControllerOpen1: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
-//    // 行の挿入または削除をコミットするようにデータソースに要求する時に発動
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        // セルが編集可能な状態(削除可能）な時
-//        if editingStyle == .delete {
-//            // 選択中のCellにあるLabelを保存配列から消す
-//            WeightData.remove(at: indexPath.row)
-//            QuantityData.remove(at: indexPath.row)
-//            AnyProductData.remove(at: indexPath.row)
-//            // 洗濯中のCellを削除
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        }
-//    }
+    // 行の挿入または削除をコミットするようにデータソースに要求する時に発動
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // セルが編集可能な状態(削除可能）な時
+        if editingStyle == .delete {
+            // 選択中のCellにあるLabelを保存配列から消す
+            tableV.remove(at: indexPath.row)
+            // 洗濯中のCellを削除
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            // coredata のデータを消す
+            deleteCoreData(array: tableV[indexPath.row])
+        }
+    }
 }
