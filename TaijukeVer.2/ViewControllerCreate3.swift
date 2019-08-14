@@ -26,19 +26,6 @@ class ViewControllerCreate3: UIViewController {
     // 最終的に保存するデータ
     var SavedData = [[Double]]()
     
-//    //UserDefaults
-//    func DataSaved(){
-//        // データ保存するための
-//        let userdefaults = UserDefaults()
-//        // 保存
-//        print("ほぞん")
-//        userdefaults.set(SavedData, forKey:"data")
-//        // 取り出す
-//        print("取り出す")
-//        let retreivedData = userdefaults.value(forKey:"data") as! [[Double]]
-//        print(retreivedData)
-//    }
-    
     
     // 初期動作
     override func viewDidLoad() {
@@ -124,18 +111,6 @@ class ViewControllerCreate3: UIViewController {
         for y in 0 ... QuantityCheck.count-1{
             
             ColumnData = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,]
-//            // 個数
-//            var Quantity = 0
-//            /// 重さ
-//            var Weight = 0.0
-//            // カゴの重さ
-//            var BoxW = 0.0
-//            // 水引き
-//            let waterCut = 0.96
-//            // 商品だけの重さ
-//            var ProductW = 0.0
-//            // 平均の重さ
-//            var AverageW = 0.0
             
             // x 行
             for x in 1...7 {
