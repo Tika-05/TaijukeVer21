@@ -42,19 +42,26 @@ final class ViewControllerCreate1: UIViewController {
     
     
     // 受け取りデータ
+    // from create0
     // 行き先 生産者
     var NameData = [String]()
+    // from create2
+    var GproductAllData = [[String]]()
+    
     
     // TableView
     @IBOutlet weak var tableView: UITableView!
     
+    // 送る配列　　(商品の重さ カゴの個入り　半端数)
+    var productAllData = [[String]]()
+    
     // TableView に入るデータ
     // カゴの個数
-    var BoxData : [String] = [""]
+    var BoxData = [String]()
     // 個入り
-    var QuantityData : [String] = [""]
+    var QuantityData = [String]()
     // 重さ
-    var WeightData : [String] = [""]
+    var WeightData = [String]()
     
     
     // 重さLabel
@@ -164,7 +171,9 @@ final class ViewControllerCreate1: UIViewController {
     // 初期処理 ------------------------------------------------------------------------------------------------------------------------------
     
     // ViewControllerCreate2から戻る時に
-    @IBAction func backToCreate1(segue: UIStoryboardSegue) {}
+    @IBAction func backToCreate1(segue: UIStoryboardSegue) {
+        productAllData = GproductAllData
+    }
     
     override func viewDidLoad() {
         
@@ -203,8 +212,7 @@ final class ViewControllerCreate1: UIViewController {
     
     // 画面遷移する時？
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        // 送る配列   (カゴの個入り　行き先の名前　カゴの数)
+        // 送る配列   (カゴの重さ　カゴの個入り　カゴの数)
         var BoxAllData = [[String]]()
         BoxAllData.append(WeightData)
         BoxAllData.append(QuantityData)
@@ -217,6 +225,7 @@ final class ViewControllerCreate1: UIViewController {
             let vc: ViewControllerCreate2 = segue.destination as! ViewControllerCreate2
             vc.NameData = NameData
             vc.BoxAllData = BoxAllData
+            vc.GproductAllData = productAllData
         }
     }
     /*

@@ -43,6 +43,8 @@ class ViewControllerCreate2: UIViewController {
     var NameData = [String]()
     // [0]カゴの個入り　[1]行き先の名前　[2]カゴの数
     var BoxAllData = [[String]]()
+    // (商品の重さ カゴの個入り　半端数)
+    var GproductAllData = [[String]]()
 
     
     
@@ -52,11 +54,12 @@ class ViewControllerCreate2: UIViewController {
     
     // TableView に入るデータ
     // 半端数
-    var AnyProductData : [String] = [""]
+    var AnyProductData = [String]()
     // 個入り
-    var QuantityData : [String] = [""]
+    var QuantityData = [String]()
     // 重さ
-    var WeightData : [String] = [""]
+    var WeightData = [String]()
+    
     
     
     // 重さラベル
@@ -165,8 +168,8 @@ class ViewControllerCreate2: UIViewController {
         tableView.reloadData()
     }
     
-
-
+    
+    
     // 初期処理 ------------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -179,6 +182,21 @@ class ViewControllerCreate2: UIViewController {
         
         print("受け取りカゴデータ")
         print(BoxAllData)
+        
+        print("受け取り商品data")
+        print(GproductAllData)
+        
+        
+        //
+        if !(GproductAllData.isEmpty){
+            for x in 0 ..< GproductAllData[0].count{
+                WeightData.append(GproductAllData[0][x])
+                QuantityData.append(GproductAllData[1][x])
+                AnyProductData.append(GproductAllData[2][x])
+            }
+        }
+        print(WeightData)
+        print(QuantityData)
         
         
         // TableView用の初期設定  http://sayulemon46.hatenablog.com/entry/2017/03/06/171934
@@ -213,9 +231,15 @@ class ViewControllerCreate2: UIViewController {
         productAllData.append(AnyProductData)
         
         // 別のView に送信
+        // "toCreate1ViewSegue"の名前の遷移のとき発動
+        if (segue.identifier == "toCreate1ViewSegue") {
+            // ViewControllerCreate1 の変数を持ってくる？
+            let vc: ViewControllerCreate1 = segue.destination as! ViewControllerCreate1
+            vc.GproductAllData = productAllData
+        }
         // "toCreate2ViewSegue"の名前の遷移のとき発動
         if (segue.identifier == "toCreate3ViewSegue") {
-            // ViewControllerCreate2 の変数を持ってくる？
+            // ViewControllerCreate3 の変数を持ってくる？
             let vc: ViewControllerCreate3 = segue.destination as! ViewControllerCreate3
             vc.NameData = NameData
             vc.BoxAllData = BoxAllData
