@@ -1,21 +1,24 @@
 //
-//  ViewControllerOpen1.swift
+//  ViewControllerSend1.swift
 //  TaijukeVer.2
 //
-//  Created by Kota Takagi on 2019/08/06.
+//  Created by Kota Takagi on 2019/08/15.
 //  Copyright © 2019 sea&see. All rights reserved.
 //
 
 import UIKit
 import CoreData
 
-class ViewControllerOpen1: UIViewController {
-    
+class ViewControllerSend1: UIViewController {
+
     // coredata 設定 ------------------------------------------------------------------------------------------------------------------------
     
     //EntityのSData型の配列を宣言   SDataEntityから引っ張ってきたデータを入れるためSData型にしておく
+    // tableViewに表示するためのデータ
     var Sdata:[SData] = []
-
+    // メール送信用に条件をつけたデータ
+    var SendData : [SData] = []
+    
     // 永続的にデータが保存されている場所みたいな マネージドオブジェクトコンテキスト
     var MOCT = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -31,6 +34,27 @@ class ViewControllerOpen1: UIViewController {
             print("エラーだよ")
         }
     }
+    
+    
+    // coredataのデータ読み込む
+    func readSendCoreData(){
+        // 送信条件を設定した時に 空じゃなければ
+        if !(SendCheck.isEmpty) {
+            for x in 0 ..< SendCheck.count {
+                //属性date,destination,producerが検索文字列と一致するデータをフェッチ対象にする。 (SQLみたいに)
+                conditionsData.predicate = NSPredicate(format:"date = %@ and destination = %@ and producer = %@", SendCheck[x][0], SendCheck[x][1], SendCheck[x][2])
+                // フェッチする
+                do{
+                    //マネージドオブジェクトコンテキストのfetchに先ほどの取得条件を食わせて、返ってきたデータをSData型に強制ダウンキャスト
+                    //取得したデータを入れる
+                    SendData += try MOCT.fetch(conditionsData) as! [SData]
+                }catch{
+                    print("エラーだよ")
+                }
+            }
+        }
+    }
+    
     
     // coredata のデータを消す
     func deleteCoreData(array : [String]){
@@ -61,22 +85,33 @@ class ViewControllerOpen1: UIViewController {
     // tableview に表示する配列
     var tableV = [[String]]()
     
-    // 送る配列   (日付　行き先　生産者)
-    var OpenCheck : [String] = ["","",""]
+    // メール送信したい情報データの識別用 配列   (日付　行き先　生産者)
+    var SendCheck = [[String]]()
+
     
+    // 送信ボタン 押された時
+    @IBAction func sendBtn(_ sender: Any) {
+        print(SendCheck)
+        print("前Sdataの個数 : \(SendData.count)")
+        readSendCoreData()
+        print("後Sdataの個数 : \(SendData.count)")
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // NavigationController(上のバー)の戻るボタン消す
-        self.navigationItem.hidesBackButton = true
-        // ナビゲーションバー透明にする  (なんかぜんViewに反映されている？)
-        // 空の背景画像設定
-        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        // ナビゲーションバーの影画像（境界線の画像）を空に設定
-        self.navigationController!.navigationBar.shadowImage = UIImage()
-
+//        // NavigationController(上のバー)の戻るボタン消す
+//        self.navigationItem.hidesBackButton = true
+//        // ナビゲーションバー透明にする  (なんかぜんViewに反映されている？)
+//        // 空の背景画像設定
+//        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        // ナビゲーションバーの影画像（境界線の画像）を空に設定
+//        self.navigationController!.navigationBar.shadowImage = UIImage()
+        
+        // tableViewの複数選択可にする
+        tableView.allowsMultipleSelection = true
+        
         
         // coredataの準備
         readCoreData()
@@ -100,18 +135,7 @@ class ViewControllerOpen1: UIViewController {
         tableV = Array(tableV.reversed())
         print(tableV)
     }
-    
-    // 画面遷移する時？
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // 別のView に送信
-        // "toOpen2ViewSegue"の名前の遷移のとき発動
-        if (segue.identifier == "toOpen2ViewSegue") {
-            // ViewControllerCreate2 の変数を持ってくる？
-            let vc: ViewControllerOpen2 = segue.destination as! ViewControllerOpen2
-            vc.OpenCheck = OpenCheck
-        }
-        
-    }
+
     /*
     // MARK: - Navigation
 
@@ -127,7 +151,7 @@ class ViewControllerOpen1: UIViewController {
 
 // TabelView 表示 ---------------------------------------------------------------------------------------------------------------------------
 
-extension ViewControllerOpen1: UITableViewDelegate, UITableViewDataSource{
+extension ViewControllerSend1: UITableViewDelegate, UITableViewDataSource{
     
     // テーブルのセクションのタイトルを返す
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -139,7 +163,7 @@ extension ViewControllerOpen1: UITableViewDelegate, UITableViewDataSource{
         return tableV.count
     }
     
-    // Cell選択された時
+    // Cellの選択時に
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // マークつける　選択したことわかるように
         let cell = tableView.cellForRow(at: indexPath)
@@ -147,10 +171,13 @@ extension ViewControllerOpen1: UITableViewDelegate, UITableViewDataSource{
         
         // タップされたセルの行番号を出力
         print("\(indexPath.row)番目の行が選択されました。")
-        //送る配列に格納
-        OpenCheck[0] = tableV[indexPath.row][0]
-        OpenCheck[1] = tableV[indexPath.row][1]
-        OpenCheck[2] = tableV[indexPath.row][2]
+        
+        // 送信する配列へ追加する　同じものがない時
+        let _set: NSSet = NSSet(array: SendCheck)
+        let any = [tableV[indexPath.row][0],tableV[indexPath.row][1],tableV[indexPath.row][2]]
+        if(!_set.contains(any)){
+            SendCheck.append(any)
+        }
     }
     
     // Cellの選択解除時に
@@ -158,6 +185,13 @@ extension ViewControllerOpen1: UITableViewDelegate, UITableViewDataSource{
         // マークつける　選択したことわかるように
         let cell = tableView.cellForRow(at:indexPath)
         cell?.accessoryType = .none
+        
+        // 配列から特定の値消す
+        let _set: NSSet = NSSet(array: SendCheck)
+        let any = [tableV[indexPath.row][0],tableV[indexPath.row][1],tableV[indexPath.row][2]]
+        if(_set.contains(any)){
+            SendCheck = (SendCheck.filter {$0 != any})
+        }
     }
     
     // セルに値を設定するデータソースメソッド（必須）
@@ -171,20 +205,5 @@ extension ViewControllerOpen1: UITableViewDelegate, UITableViewDataSource{
         cell.ProducerLabel.text = tableV[indexPath.row][2]
         
         return cell
-    }
-    
-    // 行の挿入または削除をコミットするようにデータソースに要求する時に発動
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        // coredata のデータを消す
-        deleteCoreData(array: tableV[indexPath.row])
-        
-        // セルが編集可能な状態(削除可能）な時
-        if editingStyle == .delete {
-            // 選択中のCellにあるLabelを保存配列から消す
-            tableV.remove(at: indexPath.row)
-            // 洗濯中のCellを削除
-            tableView.deleteRows(at: [indexPath], with: .fade)
-
-        }
     }
 }

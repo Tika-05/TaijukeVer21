@@ -187,7 +187,7 @@ class ViewControllerCreate2: UIViewController {
         print(GproductAllData)
         
         
-        //
+        // 画面戻る前に追加したものを戻す 空じゃなければ
         if !(GproductAllData.isEmpty){
             for x in 0 ..< GproductAllData[0].count{
                 WeightData.append(GproductAllData[0][x])
