@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import MessageUI
 
-class ViewControllerSend1: UIViewController {
+class ViewControllerSend1: UIViewController , MFMailComposeViewControllerDelegate{
 
     // coredata 設定 ------------------------------------------------------------------------------------------------------------------------
     
@@ -25,6 +26,7 @@ class ViewControllerSend1: UIViewController {
     //NSFetchRequestを使って「任意のEntityの全データを取得する」という取得条件を変数に打ち込む
     let conditionsData = NSFetchRequest<NSFetchRequestResult>(entityName: "SData")
     
+    // coredataのデータ読み込む
     func readCoreData(){
         do{
             //マネージドオブジェクトコンテキストのfetchに先ほどの取得条件を食わせて、返ってきたデータをSData型に強制ダウンキャスト
@@ -36,7 +38,7 @@ class ViewControllerSend1: UIViewController {
     }
     
     
-    // coredataのデータ読み込む
+    // coredataのデータ読み込む  送信する条件付きの
     func readSendCoreData(){
         // 送信条件を設定した時に 空じゃなければ
         if !(SendCheck.isEmpty) {
@@ -46,7 +48,7 @@ class ViewControllerSend1: UIViewController {
                 // フェッチする
                 do{
                     //マネージドオブジェクトコンテキストのfetchに先ほどの取得条件を食わせて、返ってきたデータをSData型に強制ダウンキャスト
-                    //取得したデータを入れる
+                    //取得したデータを入れる 複数あるので追加形式でする
                     SendData += try MOCT.fetch(conditionsData) as! [SData]
                 }catch{
                     print("エラーだよ")
@@ -77,6 +79,50 @@ class ViewControllerSend1: UIViewController {
     
     
     
+    
+    // メール送信 ------------------------------------------------------------------------------------------------------
+    
+    // メール画面を開く
+    func openMail(){
+        //メールを送信できるかチェック
+        if MFMailComposeViewController.canSendMail()==false {
+            print("Email Send Failed")
+            return
+        }
+        
+        print("メーラー開きます")
+        
+        let mailViewController = MFMailComposeViewController()
+//        var toRecipients = ["to@1gmail.com"] //Toのアドレス指定
+//        var CcRecipients = ["cc@1gmail.com","Cc2@1gmail.com"] //Ccのアドレス指定
+//        var BccRecipients = ["Bcc@1gmail.com","Bcc2@1gmail.com"] //Bccのアドレス指定
+        
+        mailViewController.mailComposeDelegate = self
+        mailViewController.setSubject("メールの件名")
+//        mailViewController.setToRecipients(toRecipients) //Toアドレスの表示
+//        mailViewController.setCcRecipients(CcRecipients) //Ccアドレスの表示
+//        mailViewController.setBccRecipients(BccRecipients) //Bccアドレスの表示
+        mailViewController.setMessageBody("メールの本文", isHTML: false)
+        self.present(mailViewController, animated: true, completion: nil)
+    }
+    
+    // メールを閉じる時
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result {
+        case .cancelled:
+            print("キャンセル")
+        case .saved:
+            print("下書き保存")
+        case .sent:
+            print("送信成功")
+        default:
+            print("送信失敗")
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
     // 本体 ---------------------------------------------------------------------------------------------------------------------------------
     
     // 表示するTableView
@@ -95,6 +141,7 @@ class ViewControllerSend1: UIViewController {
         print("前Sdataの個数 : \(SendData.count)")
         readSendCoreData()
         print("後Sdataの個数 : \(SendData.count)")
+        openMail()
     }
     
     
@@ -134,6 +181,12 @@ class ViewControllerSend1: UIViewController {
         // 順番を逆さまにする
         tableV = Array(tableV.reversed())
         print(tableV)
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
     /*
