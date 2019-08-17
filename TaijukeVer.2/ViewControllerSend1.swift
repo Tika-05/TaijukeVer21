@@ -83,7 +83,7 @@ class ViewControllerSend1: UIViewController , MFMailComposeViewControllerDelegat
     // メール送信 ------------------------------------------------------------------------------------------------------
     
     // メール画面を開く
-    func openMail(){
+    func openMail(dataArray : [sendData] ){
         //メールを送信できるかチェック
         if MFMailComposeViewController.canSendMail()==false {
             print("Email Send Failed")
@@ -103,6 +103,8 @@ class ViewControllerSend1: UIViewController , MFMailComposeViewControllerDelegat
 //        mailViewController.setCcRecipients(CcRecipients) //Ccアドレスの表示
 //        mailViewController.setBccRecipients(BccRecipients) //Bccアドレスの表示
         mailViewController.setMessageBody("メールの本文", isHTML: false)
+        mailViewController.addAttachmentData(toCSV(array: dataArray).data(using: String.Encoding.utf8, allowLossyConversion: false)!, mimeType: "text/csv", fileName: "sample.csv")
+        
         self.present(mailViewController, animated: true, completion: nil)
     }
     
@@ -123,6 +125,31 @@ class ViewControllerSend1: UIViewController , MFMailComposeViewControllerDelegat
     
     
     
+    
+    // 配列をcsvファイルに変換
+    func toCSV(array: [sendData] ) -> String {
+        // csvファイルかする文字列
+        var fileStrData = ""
+        //StringのCSV用データを準備
+        for stu in array{
+            // "/""  -> 文字列内で　"
+            fileStrData += "\"" + stu.date + "\"" + ","
+            fileStrData += "\"" + stu.destination + "\"" + ","
+            fileStrData += "\"" + stu.producer + "\"" + ","
+            fileStrData += String(stu.allNum) + ","
+            fileStrData += String(stu.num) + ","
+            fileStrData += String(stu.allWei) + ","
+            fileStrData += String(stu.cageWei) + ","
+            fileStrData += String(stu.waterCut) + ","
+            fileStrData += String(stu.proWei) + ","
+            fileStrData += String(stu.average)
+            fileStrData += "\n"
+        }
+        print(fileStrData)
+        return fileStrData
+    }
+    
+    
     // 本体 ---------------------------------------------------------------------------------------------------------------------------------
     
     // 表示するTableView
@@ -134,14 +161,32 @@ class ViewControllerSend1: UIViewController , MFMailComposeViewControllerDelegat
     // メール送信したい情報データの識別用 配列   (日付　行き先　生産者)
     var SendCheck = [[String]]()
 
+    // 送信データの構造体
+    struct sendData {
+        // 日付　行き先　生産者　　総尾数　個入り　総重量　カゴだけ重量　水引　商品だけ重量　平均重量
+        var date : String
+        var destination : String
+        var producer : String
+        var allNum : Double
+        var num : Double
+        var allWei : Double
+        var cageWei : Double
+        var waterCut : Double
+        var proWei : Double
+        var average : Double
+    }
     
     // 送信ボタン 押された時
     @IBAction func sendBtn(_ sender: Any) {
         print(SendCheck)
-        print("前Sdataの個数 : \(SendData.count)")
+        // 条件に合う物をcoredataの中から探してくる
         readSendCoreData()
-        print("後Sdataの個数 : \(SendData.count)")
-        openMail()
+        // coredataから取った物を文字列の使いやすいように配列に格納する csvファイルにするために
+        var csvData = [sendData]()
+        for task in SendData{
+            csvData.append( sendData(date : task.date!, destination : task.destination!, producer : task.producer!, allNum : task.allNum, num : task.num, allWei : task.allWei, cageWei : task.cageWei, waterCut : task.waterCut, proWei : task.proWei, average : task.average) )
+        }
+        openMail(dataArray: csvData)
     }
     
     
