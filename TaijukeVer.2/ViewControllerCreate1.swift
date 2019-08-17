@@ -223,6 +223,22 @@ final class ViewControllerCreate1: UIViewController {
         BoxAllData.append(QuantityData)
         BoxAllData.append(BoxData)
         
+        // 今回使われた何個入りをまとめる  被りを消す
+        let orderedSet = NSOrderedSet(array: QuantityData)
+        let uniqueValues = orderedSet.array as! [String]
+        // どの個数入りのボタンが何回押された確認
+        var selectcage : [String : Int] = [:]
+        for task in uniqueValues{
+            var n = 0
+            for x in 0 ..< QuantityData.count {
+                if task == QuantityData[x]{
+                    n += Int(BoxData[x]) ?? 0
+                }
+            }
+            // どの匹入りがどんだけ押されたか確認するために送るデータ (辞書)
+            selectcage.updateValue(n, forKey: "\(task)匹入")
+        }
+
         // 別のView に送信
         // "toCreate2ViewSegue"の名前の遷移のとき発動
         if (segue.identifier == "toCreate2ViewSegue") {
@@ -231,6 +247,7 @@ final class ViewControllerCreate1: UIViewController {
             vc.NameData = NameData
             vc.BoxAllData = BoxAllData
             vc.GproductAllData = productAllData
+            vc.selectcage = selectcage
         }
     }
     /*

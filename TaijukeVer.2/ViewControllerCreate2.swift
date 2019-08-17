@@ -45,6 +45,8 @@ class ViewControllerCreate2: UIViewController {
     var BoxAllData = [[String]]()
     // (商品の重さ カゴの個入り　半端数)
     var GproductAllData = [[String]]()
+    // どの個数入りのボタンが何回押された確認
+    var selectcage : [String : Int] = [:]
 
     
     
@@ -182,9 +184,9 @@ class ViewControllerCreate2: UIViewController {
         
         print("受け取りカゴデータ")
         print(BoxAllData)
-        
         print("受け取り商品data")
         print(GproductAllData)
+        print("匹入りカゴ確認\(selectcage)")
         
         
         // 画面戻る前に追加したものを戻す 空じゃなければ
