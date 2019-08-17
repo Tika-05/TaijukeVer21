@@ -224,6 +224,9 @@ class ViewControllerCreate2: UIViewController {
     // 画面遷移する時？
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        // CoreBluetoothを初期化および始動.
+        centralManager = CBCentralManager(delegate: self, queue: nil, options: nil)
+        
         // 送る配列   (商品の個入り　行き先の名前)
         var productAllData = [[String]]()
         productAllData.append(WeightData)
