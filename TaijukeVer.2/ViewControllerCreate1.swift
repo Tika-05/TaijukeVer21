@@ -357,25 +357,6 @@ extension ViewControllerCreate1: CBPeripheralDelegate {
             weight = Sweight
         }
         
-//        var  taiju = Int(reportData[2]) * 255 + Int(reportData[3])
-//
-//        // 変な値除去する
-//        if Double(taiju) == 64515 {
-//            Thread.sleep(forTimeInterval: 10.0)
-//        }else if Double(taiju) == 64516 {
-//            taiju = Int(Sweight * 10)
-//        }else if Double(taiju) == 64785 {
-//            taiju = Int(Sweight * 10)
-//        }else if Double(taiju) == 64770{
-//            taiju = Int(Sweight * 10)
-//        }else if Double(taiju) == 64771{
-//            taiju = Int(Sweight * 10)
-//        }else if Double(taiju) == 64777{
-//            taiju = Int(Sweight * 10)
-//        }
-        
-        
-//        let weight = Double(taiju) / 10.0
         print("重さ : \(weight)")
         // 代入する重さLabelへ
         WeightLabel.text = String(weight)
@@ -394,7 +375,7 @@ extension ViewControllerCreate1: UITableViewDelegate, UITableViewDataSource{
     
     // テーブルのセクションのタイトルを返す
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "   重さ                                                                        何匹入                                                                        カゴ個数"
+        return "   重さ                                                                      何匹入                                                                      カゴ個数"
     }
     
     // セルの個数を指定するデリゲートメソッド（必須）
