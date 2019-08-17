@@ -28,6 +28,8 @@
 		87E40A9922CCC0AD001E08AA /* TaijukeVer_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E40A9822CCC0AD001E08AA /* TaijukeVer_2Tests.swift */; };
 		87E40AA422CCC0AD001E08AA /* TaijukeVer_2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E40AA322CCC0AD001E08AA /* TaijukeVer_2UITests.swift */; };
 		87EB6E13230429AD00BC3BC9 /* ViewControllerOpen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EB6E12230429AD00BC3BC9 /* ViewControllerOpen2.swift */; };
+		87F09E8D2307C36200D7DCAC /* IMG_2597.png in Resources */ = {isa = PBXBuildFile; fileRef = 87F09E8B2307C36200D7DCAC /* IMG_2597.png */; };
+		87F09E8E2307C36200D7DCAC /* IMG_2598.png in Resources */ = {isa = PBXBuildFile; fileRef = 87F09E8C2307C36200D7DCAC /* IMG_2598.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		87E40AA322CCC0AD001E08AA /* TaijukeVer_2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaijukeVer_2UITests.swift; sourceTree = "<group>"; };
 		87E40AA522CCC0AD001E08AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87EB6E12230429AD00BC3BC9 /* ViewControllerOpen2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerOpen2.swift; sourceTree = "<group>"; };
+		87F09E8B2307C36200D7DCAC /* IMG_2597.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IMG_2597.png; path = ../../../Downloads/IMG_2597.png; sourceTree = "<group>"; };
+		87F09E8C2307C36200D7DCAC /* IMG_2598.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IMG_2598.png; path = ../../../Downloads/IMG_2598.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				875E83E922E2B59600388BA0 /* スクリーンショット 2019-07-20 11.34.22.png */,
+				87F09E8B2307C36200D7DCAC /* IMG_2597.png */,
+				87F09E8C2307C36200D7DCAC /* IMG_2598.png */,
 				875E83E422E2B36900388BA0 /* カゴ.png */,
 				875E83E522E2B36900388BA0 /* 鯛.png */,
 			);
@@ -298,10 +304,12 @@
 			files = (
 				875E83EA22E2B59600388BA0 /* スクリーンショット 2019-07-20 11.34.22.png in Resources */,
 				87E40A8E22CCC0AD001E08AA /* LaunchScreen.storyboard in Resources */,
+				87F09E8D2307C36200D7DCAC /* IMG_2597.png in Resources */,
 				875E83E622E2B36900388BA0 /* カゴ.png in Resources */,
 				875E83E722E2B36900388BA0 /* 鯛.png in Resources */,
 				87C7153D22F9A10500EDDB6B /* dataList.csv in Resources */,
 				87E40A8B22CCC0AD001E08AA /* Assets.xcassets in Resources */,
+				87F09E8E2307C36200D7DCAC /* IMG_2598.png in Resources */,
 				87E40A8622CCC0AB001E08AA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
