@@ -32,8 +32,9 @@ final class ViewControllerCreate1: UIViewController {
         serviceUUID = CBUUID(string: kServiveUUID)
         charcteristicUUID = CBUUID(string: kCharacteristcUUID)
     }
-    
-    
+
+    // 変な値に対応するように値を保存する
+    var Sweight = 0.0
     
     
     
@@ -338,24 +339,47 @@ extension ViewControllerCreate1: CBPeripheralDelegate {
             [UInt8](UnsafeBufferPointer(start: $0.baseAddress!.assumingMemoryBound( to: UInt8.self ), count:8))
         }
         
-        var taiju = Int(reportData[2]) * 255 + Int(reportData[3])
+        
+        var weight = Double( Int(reportData[2]) * 255 + Int(reportData[3]) ) / 10.0
+        
+        // 変な値除去する
+        if weight == 6451.5 {
+            weight = Sweight
+        }else if weight == 6451.6 {
+            weight = Sweight
+        }else if weight == 6478.5 {
+            weight = Sweight
+        }else if weight == 6477.0{
+            weight = Sweight
+        }else if weight == 6477.1{
+            weight = Sweight
+        }else if weight == 6477.7{
+            weight = Sweight
+        }
+        
+//        var  taiju = Int(reportData[2]) * 255 + Int(reportData[3])
 //
+//        // 変な値除去する
 //        if Double(taiju) == 64515 {
 //            Thread.sleep(forTimeInterval: 10.0)
 //        }else if Double(taiju) == 64516 {
-//            taiju = 0
+//            taiju = Int(Sweight * 10)
 //        }else if Double(taiju) == 64785 {
-//            taiju = 0
+//            taiju = Int(Sweight * 10)
+//        }else if Double(taiju) == 64770{
+//            taiju = Int(Sweight * 10)
 //        }else if Double(taiju) == 64771{
-//            taiju = 0
+//            taiju = Int(Sweight * 10)
+//        }else if Double(taiju) == 64777{
+//            taiju = Int(Sweight * 10)
 //        }
-//
-//
         
-        let weight = Double(taiju) / 10.0
+        
+//        let weight = Double(taiju) / 10.0
         print("重さ : \(weight)")
         // 代入する重さLabelへ
         WeightLabel.text = String(weight)
+        Sweight = weight
         
     }
 }
