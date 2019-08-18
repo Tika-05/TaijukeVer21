@@ -227,7 +227,7 @@ final class ViewControllerCreate1: UIViewController {
         let orderedSet = NSOrderedSet(array: QuantityData)
         let uniqueValues = orderedSet.array as! [String]
         // どの個数入りのボタンが何回押された確認
-        var selectcage : [String : Int] = [:]
+        var selectcage : [Int : Int] = [:]
         for task in uniqueValues{
             var n = 0
             for x in 0 ..< QuantityData.count {
@@ -236,7 +236,7 @@ final class ViewControllerCreate1: UIViewController {
                 }
             }
             // どの匹入りがどんだけ押されたか確認するために送るデータ (辞書)
-            selectcage.updateValue(n, forKey: "\(task)匹入")
+            selectcage.updateValue(n, forKey: Int(task)!)
         }
 
         // 別のView に送信
@@ -407,8 +407,8 @@ extension ViewControllerCreate1: UITableViewDelegate, UITableViewDataSource{
         
         // セルに表示する値を設定する
         cell.productLabel.text = WeightData[indexPath.row]
-        cell.BoxLabel.text = QuantityData[indexPath.row]
-        cell.QuantityLabel.text = BoxData[indexPath.row]
+        cell.BoxLabel.text = BoxData[indexPath.row]
+        cell.QuantityLabel.text = QuantityData[indexPath.row]
         
         return cell
     }

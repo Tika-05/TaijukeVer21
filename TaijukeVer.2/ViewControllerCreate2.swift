@@ -46,12 +46,10 @@ class ViewControllerCreate2: UIViewController {
     // (商品の重さ カゴの個入り　半端数)
     var GproductAllData = [[String]]()
     // どの個数入りのボタンが何回押された確認　オリジナル
-    var selectcage: [String : Int] = [:]
+    var selectcage: [Int : Int] = [:]
     
-    // selectcageのコピー あとあと使えるから
-    var selectcageC: [String : Int] = [:]
     // selectcageのkeyだけの配列
-    var selectCageKey = [String]()
+    var selectCageKey = [Int]()
     
     
     // TableView
@@ -155,95 +153,94 @@ class ViewControllerCreate2: UIViewController {
     
     // 保存ボタン押された時発動
     @IBAction func saveClick(_ sender: Any){
-        // 保存用(テーブル表示用)の配列の[0]番目に代入する
-        // X個入りに対応
-        if QuantityXField.isEnabled == true{
-            QuantityData.insert(QuantityXField.text ?? "", at: 0)
-        }else{
-            QuantityData.insert(selectQuantity, at: 0)
-        }
-        
-        AnyProductData.insert(selectAnyProduct.text!, at: 0)
-        WeightData.insert(WeightLabel2.text!, at: 0)
+        // 値が入ってないなら無視
         
         
-        // 残り回数減らす
-        for (key,value) in selectcage{
-            print("key : \(key)   selectQuantity : \(selectQuantity)")
-            
-            // 数字と文字があるから 特定の文字消す
-            var moji = key
-            if let range = moji.range(of: "匹入") {
-                moji.replaceSubrange(range, with: "")
+//  !(WeightLabel2.text != "" || WeightLabel2.text != "0.0") &&    <- 実験用に外したhgoasgalgalhglkawghhhhhhhhhjgkdslalakjsglksagjaslgjlasjglasglagalskdjglasjglajglajsglajsldgjaslgjalsgjlasdjglasgasglka
+        
+        
+        if selectQuantity != "" || QuantityXField.text != ""{
+            // 保存用(テーブル表示用)の配列の[0]番目に代入する
+            // X個入りに対応
+            if QuantityXField.isEnabled == true{
+                QuantityData.insert(QuantityXField.text ?? "", at: 0)
+            }else{
+                QuantityData.insert(selectQuantity, at: 0)
             }
+            
+            AnyProductData.insert(selectAnyProduct.text!, at: 0)
+            WeightData.insert(WeightLabel2.text!, at: 0)
+            
+            
+            // 残り回数減らす
+            for (key,value) in selectcage{
+                print("key : \(key)   selectQuantity : \(selectQuantity)")
                 
-            if moji == selectQuantity{
-                print("1")
-                // オリジナルに上書き
-                selectcage[key] = selectcage[key]! - 1
-                for x in 0 ..< arrayQuantity.count{
-                    if selectQuantity == String(arrayQuantity[x].tag){
-                        // 使用されたから1減らす
-                        arrayQuantity[x].setTitle("\(key)(\(value-1))", for: .normal)
-                        // 残りがなくなれば
-                        if selectcage[key] == 0 {
-                            // ボタン無効化する
-                            arrayQuantity[x].isEnabled = false // ボタン無効
-                            arrayQuantity[x].backgroundColor = UIColor.black
-                            // 使ったものは消す
-                            selectcage.removeValue(forKey:key)
+                if key == Int(selectQuantity){
+                    print("1")
+                    // オリジナルに上書き
+                    selectcage[key] = selectcage[key]! - 1
+                    for x in 0 ..< arrayQuantity.count{
+                        if selectQuantity == String(arrayQuantity[x].tag){
+                            // 使用されたから1減らす
+                            arrayQuantity[x].setTitle("\(key)匹入(\(value-1))", for: .normal)
+                            // 残りがなくなれば
+                            if selectcage[key]! <= 0 {
+                                // ボタン無効化する
+                                arrayQuantity[x].isEnabled = false // ボタン無効
+                                arrayQuantity[x].backgroundColor = UIColor.black
+                                // 使ったものは消す
+                                selectcage.removeValue(forKey:key)
+                            }
                         }
                     }
                 }
             }
+            selectQuantity = ""
+            
+            
+            print("商品保存")
+            print(WeightData)
+            print(QuantityData)
+            print(AnyProductData)
+            
+            // tableView更新
+            tableView.reloadData()
         }
-        
-        
-        print("商品保存")
-        print(WeightData)
-        print(QuantityData)
-        print(AnyProductData)
-        
-        // tableView更新
-        tableView.reloadData()
     }
     
+    // 初期セット ボタン
     func updataSelectCage(){
+        // seellctcageのkeyだけの配列  昇順
+        selectCageKey = [Int](selectcage.keys)
+        print(selectCageKey)
         // 個入りのボタンか
         for x in 0 ... 7 {
-            // 匹入ので何カゴつかわれたのが最大か求める
-            var max = 0
-            for value in selectcageC.values{
-                if value > max {
-                    max = value
-                }
-            }
-            // 最大のものからタグ設定する  ボタンにする
-            for (key,value) in selectcageC{
-                if value == max {
-                    // 数字と文字があるから 特定の文字消す
-                    var moji = key
-                    arrayQuantity[x].setTitle("\(key)(\(value))", for: .normal)
-                    if let range = moji.range(of: "匹入") {
-                        moji.replaceSubrange(range, with: "")
-                        arrayQuantity[x].tag = Int(moji) ?? 0
-                    }
-                    // 使ったものは消す
-                    selectcageC.removeValue(forKey:key)
-                    break
-                }
-            }
             // もう必要ないボタンは作らない
-            if selectcageC.isEmpty{
+            if selectCageKey.isEmpty{
                 // ボタン無効化する
                 arrayQuantity[x].isEnabled = false // ボタン無効
                 arrayQuantity[x].backgroundColor = UIColor.black
                 QuantityX.isEnabled = false // ボタン無効
                 QuantityX.backgroundColor = UIColor.black
             }
+            // 最大のものからタグ設定する  ボタンにする
+            for (key,value) in selectcage{
+                // 一番量の少ないものからボタン化する
+                if !(selectCageKey.isEmpty) && selectCageKey[0] == key{
+                    arrayQuantity[x].setTitle("\(key)匹入(\(value))", for: .normal)
+                    arrayQuantity[x].tag = key
+                    // 使わないものは消す
+                    selectCageKey.removeFirst()
+                    if value == 0{
+                        // ボタン無効化する
+                        arrayQuantity[x].isEnabled = false // ボタン無効
+                        arrayQuantity[x].backgroundColor = UIColor.black
+                    }
+                    break
+                }
+            }
         }
-        // seellctcageのkeyだけの配列
-        selectCageKey = [String](selectcageC.keys)
     }
     
     
@@ -287,8 +284,6 @@ class ViewControllerCreate2: UIViewController {
         arrayQuantity.append(contentsOf: [Quantity5, Quantity6, Quantity7, Quantity8, Quantity9, Quantity10, Quantity11, Quantity12])
         // falseなら操作不可  半端数ボタンが押された時に操作可能に
         QuantityXField.isEnabled = false
-        // コピーする
-        selectcageC = selectcage
         // ボタンやピッカーに対応するための
         updataSelectCage()
 
@@ -515,7 +510,7 @@ extension ViewControllerCreate2: UIPickerViewDelegate, UIPickerViewDataSource{
     //表示する文字列を指定する
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int)-> String? {
         if pickerView.tag == 1 {
-            return selectCageKey[row]
+            return String(selectCageKey[row])
         } else {
             return arrayAnyProduct[row]
         }
@@ -525,13 +520,8 @@ extension ViewControllerCreate2: UIPickerViewDelegate, UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         if pickerView.tag == 1 {
             if !(selectCageKey.isEmpty){
-                // 数字と文字があるから 特定の文字消す
-                var moji = selectCageKey[row]
-                if let range = moji.range(of: "匹入") {
-                    moji.replaceSubrange(range, with: "")
-                    QuantityXField.text = moji
+                    QuantityXField.text = String(selectCageKey[row])
                 }
-            }
         } else {
             // カゴ個数のTextFieldに入れる
             selectAnyProduct.text = arrayAnyProduct[row]
