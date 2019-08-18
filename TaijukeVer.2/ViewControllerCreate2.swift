@@ -54,8 +54,6 @@ class ViewControllerCreate2: UIViewController {
     
     // TableView
     @IBOutlet weak var tableView: UITableView!
-    // 名前選択時のピッカーView
-    let pickerView1: UIPickerView = UIPickerView()
     
     // TableView に入るデータ
     // 半端数
@@ -95,9 +93,11 @@ class ViewControllerCreate2: UIViewController {
     // ピッカー画面
     var vi: UIView = UIView()
     // 半端数選択用配列
-    var arrayAnyProduct : [String] = ["","1","2","3","4","5","6","7","8","9","10","11"]
+    var arrayAnyProduct = [String]()
     // 選択中の入力する半端数
     @IBOutlet weak var selectAnyProduct: UITextField!
+    // 半端数の選択画面を開くボタン
+    @IBOutlet weak var selectAnyProductBtn: UIButton!
     
     
     
@@ -111,6 +111,11 @@ class ViewControllerCreate2: UIViewController {
         // trueなら操作可、falseなら操作不可
         QuantityXField.isEnabled = false;
         QuantityXField.text = ""
+        
+        // 半端数ボタン無効化解除
+        selectAnyProductBtn.isEnabled = true
+        selectAnyProductBtn.backgroundColor = UIColor(red:67.0/255.0,green:186.0/255.0,blue:156.0/255.0,alpha:1.0)
+        // 67 186 156 43BA9C
         
         // 保存する用へ
         selectQuantity = String(sender.tag)
@@ -128,6 +133,10 @@ class ViewControllerCreate2: UIViewController {
     @IBAction func QauntityXClick(_ sender: UIButton) {
         // trueなら操作可、falseなら操作不可
         QuantityXField.isEnabled = true
+        
+        // 半端数ボタン無効化解除
+        selectAnyProductBtn.isEnabled = true
+        selectAnyProductBtn.backgroundColor = UIColor(red:67.0/255.0,green:186.0/255.0,blue:156.0/255.0,alpha:1.0)
         
         // 選択中でないボタンは半透明に
         for i in 0 ... 7 {
@@ -147,6 +156,12 @@ class ViewControllerCreate2: UIViewController {
     @IBAction func NameSelectClick(_ sender: Any) {
         // 今開いてるpicker画面を消す
         vi.removeFromSuperview()
+        // 半端数の配列靴る
+        arrayAnyProduct = []
+        let n = Int(selectQuantity) ?? 0
+        for x in 1 ... n{
+            arrayAnyProduct.append(String(x))
+        }
         // 半端数選択用ピッカー作成
         boxPickerCreate()
     }
@@ -192,6 +207,9 @@ class ViewControllerCreate2: UIViewController {
                                 arrayQuantity[x].backgroundColor = UIColor.black
                                 // 使ったものは消す
                                 selectcage.removeValue(forKey:key)
+                                // 半端数ボタン無効化解除
+                                selectAnyProductBtn.isEnabled = false
+                                selectAnyProductBtn.backgroundColor = UIColor.black
                                 selectQuantity = ""
                             }
                         }
@@ -202,6 +220,9 @@ class ViewControllerCreate2: UIViewController {
                         if(_set.contains(key)){
                             selectCageKey = (selectCageKey.filter {$0 != key})
                         }
+                        // 半端数ボタン無効化解除
+                        selectAnyProductBtn.isEnabled = false
+                        selectAnyProductBtn.backgroundColor = UIColor.black
                         selectQuantity = ""
                     }
                 }
@@ -215,8 +236,6 @@ class ViewControllerCreate2: UIViewController {
             
             // tableView更新
             tableView.reloadData()
-            // pickerView更新
-            self.pickerView1.reloadAllComponents()
         }
     }
     
@@ -287,6 +306,11 @@ class ViewControllerCreate2: UIViewController {
         tableView.delegate = self
         // テーブルに表示する内容を提供する
         tableView.dataSource = self
+        
+        
+        // ボタン無効化する
+        selectAnyProductBtn.isEnabled = false // ボタン無効
+        selectAnyProductBtn.backgroundColor = UIColor.black
         
         
         // 個入りの配列にまとめて追加
@@ -597,6 +621,8 @@ extension ViewControllerCreate2: UIPickerViewDelegate, UIPickerViewDataSource{
     
     
     func selectCageCreate(){
+        // 名前選択時のピッカーView
+        let pickerView1: UIPickerView = UIPickerView()
         // ピッカーの位置やサイズ
         pickerView1.frame = CGRect(x: 0, y:0, width: UIScreen.main.bounds.size.width, height: pickerView1.bounds.size.height)
         // ピッカーするべき設定
