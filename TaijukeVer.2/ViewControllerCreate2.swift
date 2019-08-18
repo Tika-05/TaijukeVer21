@@ -54,6 +54,8 @@ class ViewControllerCreate2: UIViewController {
     
     // TableView
     @IBOutlet weak var tableView: UITableView!
+    // 名前選択時のピッカーView
+    let pickerView1: UIPickerView = UIPickerView()
     
     // TableView に入るデータ
     // 半端数
@@ -176,8 +178,7 @@ class ViewControllerCreate2: UIViewController {
             for (key,value) in selectcage{
                 print("key : \(key)   selectQuantity : \(selectQuantity)")
                 
-                if key == Int(selectQuantity){
-                    print("1")
+                if key == Int(selectQuantity) || key == Int(QuantityXField.text!){
                     // オリジナルに上書き
                     selectcage[key] = selectcage[key]! - 1
                     for x in 0 ..< arrayQuantity.count{
@@ -191,12 +192,20 @@ class ViewControllerCreate2: UIViewController {
                                 arrayQuantity[x].backgroundColor = UIColor.black
                                 // 使ったものは消す
                                 selectcage.removeValue(forKey:key)
+                                selectQuantity = ""
                             }
                         }
                     }
+                    if value < 0{
+                        // ピッカー用に使ったもの消す
+                        let _set: NSSet = NSSet(array: selectCageKey)
+                        if(_set.contains(key)){
+                            selectCageKey = (selectCageKey.filter {$0 != key})
+                        }
+                        selectQuantity = ""
+                    }
                 }
             }
-            selectQuantity = ""
             
             
             print("商品保存")
@@ -206,11 +215,13 @@ class ViewControllerCreate2: UIViewController {
             
             // tableView更新
             tableView.reloadData()
+            // pickerView更新
+            self.pickerView1.reloadAllComponents()
         }
     }
     
     // 初期セット ボタン
-    func updataSelectCage(){
+    func setSelectCage(){
         // seellctcageのkeyだけの配列  昇順
         selectCageKey = [Int](selectcage.keys)
         print(selectCageKey)
@@ -221,24 +232,22 @@ class ViewControllerCreate2: UIViewController {
                 // ボタン無効化する
                 arrayQuantity[x].isEnabled = false // ボタン無効
                 arrayQuantity[x].backgroundColor = UIColor.black
-                QuantityX.isEnabled = false // ボタン無効
-                QuantityX.backgroundColor = UIColor.black
             }
             // 最大のものからタグ設定する  ボタンにする
             for (key,value) in selectcage{
                 // 一番量の少ないものからボタン化する
-                if !(selectCageKey.isEmpty) && selectCageKey[0] == key{
+                if !(selectCageKey.isEmpty) && selectCageKey[0] == key && value != 0{
                     arrayQuantity[x].setTitle("\(key)匹入(\(value))", for: .normal)
                     arrayQuantity[x].tag = key
                     // 使わないものは消す
                     selectCageKey.removeFirst()
-                    if value == 0{
-                        // ボタン無効化する
-                        arrayQuantity[x].isEnabled = false // ボタン無効
-                        arrayQuantity[x].backgroundColor = UIColor.black
-                    }
                     break
                 }
+            }
+            // もう必要ないボタンは作らない
+            if selectCageKey.isEmpty{
+                QuantityX.isEnabled = false // ボタン無効
+                QuantityX.backgroundColor = UIColor.black
             }
         }
     }
@@ -285,7 +294,7 @@ class ViewControllerCreate2: UIViewController {
         // falseなら操作不可  半端数ボタンが押された時に操作可能に
         QuantityXField.isEnabled = false
         // ボタンやピッカーに対応するための
-        updataSelectCage()
+        setSelectCage()
 
     }
     
@@ -495,11 +504,13 @@ extension ViewControllerCreate2: UIPickerViewDelegate, UIPickerViewDataSource{
     // UIPickerViewDataSource
     // 表示する列数
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        print("1")
         return 1
     }
     // アイテム表示個数を指定する
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView.tag == 1 {    
+        if pickerView.tag == 1 {
+            print("2")
             return selectCageKey.count
         } else {
             return arrayAnyProduct.count
@@ -510,7 +521,8 @@ extension ViewControllerCreate2: UIPickerViewDelegate, UIPickerViewDataSource{
     //表示する文字列を指定する
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int)-> String? {
         if pickerView.tag == 1 {
-            return String(selectCageKey[row])
+            print("3")
+            return "\(selectCageKey[row])匹入(\(selectcage[selectCageKey[row]] ?? 0)) "
         } else {
             return arrayAnyProduct[row]
         }
@@ -519,6 +531,7 @@ extension ViewControllerCreate2: UIPickerViewDelegate, UIPickerViewDataSource{
     // 選択時の処理 (選択されている値)
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         if pickerView.tag == 1 {
+            print("4")
             if !(selectCageKey.isEmpty){
                     QuantityXField.text = String(selectCageKey[row])
                 }
@@ -584,8 +597,6 @@ extension ViewControllerCreate2: UIPickerViewDelegate, UIPickerViewDataSource{
     
     
     func selectCageCreate(){
-        // 名前選択時のピッカーView
-        let pickerView1: UIPickerView = UIPickerView()
         // ピッカーの位置やサイズ
         pickerView1.frame = CGRect(x: 0, y:0, width: UIScreen.main.bounds.size.width, height: pickerView1.bounds.size.height)
         // ピッカーするべき設定

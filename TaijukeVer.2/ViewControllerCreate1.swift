@@ -235,8 +235,10 @@ final class ViewControllerCreate1: UIViewController {
                     n += Int(BoxData[x]) ?? 0
                 }
             }
-            // どの匹入りがどんだけ押されたか確認するために送るデータ (辞書)
-            selectcage.updateValue(n, forKey: Int(task)!)
+            if n > 0 {
+                // どの匹入りがどんだけ押されたか確認するために送るデータ (辞書)
+                selectcage.updateValue(n, forKey: Int(task)!)
+            }
         }
 
         // 別のView に送信
