@@ -45,10 +45,13 @@ class ViewControllerCreate2: UIViewController {
     var BoxAllData = [[String]]()
     // (商品の重さ カゴの個入り　半端数)
     var GproductAllData = [[String]]()
-    // どの個数入りのボタンが何回押された確認
-    var selectcage : [String : Int] = [:]
-
+    // どの個数入りのボタンが何回押された確認　オリジナル
+    var selectcage: [String : Int] = [:]
     
+    // selectcageのコピー あとあと使えるから
+    var selectcageC: [String : Int] = [:]
+    // selectcageのkeyだけの配列
+    var selectCageKey = [String]()
     
     
     // TableView
@@ -133,6 +136,8 @@ class ViewControllerCreate2: UIViewController {
         }
         //押されているボタンは普通に
         sender.alpha = 1
+        
+        selectCageCreate()
     }
     
     
@@ -161,6 +166,39 @@ class ViewControllerCreate2: UIViewController {
         AnyProductData.insert(selectAnyProduct.text!, at: 0)
         WeightData.insert(WeightLabel2.text!, at: 0)
         
+        
+        // 残り回数減らす
+        for (key,value) in selectcage{
+            print("key : \(key)   selectQuantity : \(selectQuantity)")
+            
+            // 数字と文字があるから 特定の文字消す
+            var moji = key
+            if let range = moji.range(of: "匹入") {
+                moji.replaceSubrange(range, with: "")
+            }
+                
+            if moji == selectQuantity{
+                print("1")
+                // オリジナルに上書き
+                selectcage[key] = selectcage[key]! - 1
+                for x in 0 ..< arrayQuantity.count{
+                    if selectQuantity == String(arrayQuantity[x].tag){
+                        // 使用されたから1減らす
+                        arrayQuantity[x].setTitle("\(key)(\(value-1))", for: .normal)
+                        // 残りがなくなれば
+                        if selectcage[key] == 0 {
+                            // ボタン無効化する
+                            arrayQuantity[x].isEnabled = false // ボタン無効
+                            arrayQuantity[x].backgroundColor = UIColor.black
+                            // 使ったものは消す
+                            selectcage.removeValue(forKey:key)
+                        }
+                    }
+                }
+            }
+        }
+        
+        
         print("商品保存")
         print(WeightData)
         print(QuantityData)
@@ -170,6 +208,43 @@ class ViewControllerCreate2: UIViewController {
         tableView.reloadData()
     }
     
+    func updataSelectCage(){
+        // 個入りのボタンか
+        for x in 0 ... 7 {
+            // 匹入ので何カゴつかわれたのが最大か求める
+            var max = 0
+            for value in selectcageC.values{
+                if value > max {
+                    max = value
+                }
+            }
+            // 最大のものからタグ設定する  ボタンにする
+            for (key,value) in selectcageC{
+                if value == max {
+                    // 数字と文字があるから 特定の文字消す
+                    var moji = key
+                    arrayQuantity[x].setTitle("\(key)(\(value))", for: .normal)
+                    if let range = moji.range(of: "匹入") {
+                        moji.replaceSubrange(range, with: "")
+                        arrayQuantity[x].tag = Int(moji) ?? 0
+                    }
+                    // 使ったものは消す
+                    selectcageC.removeValue(forKey:key)
+                    break
+                }
+            }
+            // もう必要ないボタンは作らない
+            if selectcageC.isEmpty{
+                // ボタン無効化する
+                arrayQuantity[x].isEnabled = false // ボタン無効
+                arrayQuantity[x].backgroundColor = UIColor.black
+                QuantityX.isEnabled = false // ボタン無効
+                QuantityX.backgroundColor = UIColor.black
+            }
+        }
+        // seellctcageのkeyだけの配列
+        selectCageKey = [String](selectcageC.keys)
+    }
     
     
     // 初期処理 ------------------------------------------------------------------------------------------------------------------------------
@@ -210,14 +285,12 @@ class ViewControllerCreate2: UIViewController {
         
         // 個入りの配列にまとめて追加
         arrayQuantity.append(contentsOf: [Quantity5, Quantity6, Quantity7, Quantity8, Quantity9, Quantity10, Quantity11, Quantity12])
-        // 個入りのボタンか
-        var tagb = 5
-        for i in 0 ... 7 {
-            arrayQuantity[i].tag = tagb
-            tagb += 1
-        }
         // falseなら操作不可  半端数ボタンが押された時に操作可能に
         QuantityXField.isEnabled = false
+        // コピーする
+        selectcageC = selectcage
+        // ボタンやピッカーに対応するための
+        updataSelectCage()
 
     }
     
@@ -431,24 +504,43 @@ extension ViewControllerCreate2: UIPickerViewDelegate, UIPickerViewDataSource{
     }
     // アイテム表示個数を指定する
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return arrayAnyProduct.count
+        if pickerView.tag == 1 {    
+            return selectCageKey.count
+        } else {
+            return arrayAnyProduct.count
+        }
     }
     
     // UIPickerViewDelegate
     //表示する文字列を指定する
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int)-> String? {
-        return arrayAnyProduct[row]
+        if pickerView.tag == 1 {
+            return selectCageKey[row]
+        } else {
+            return arrayAnyProduct[row]
+        }
+        
     }
     // 選択時の処理 (選択されている値)
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        // カゴ個数のTextFieldに入れる
-        selectAnyProduct.text = arrayAnyProduct[row]
+        if pickerView.tag == 1 {
+            if !(selectCageKey.isEmpty){
+                // 数字と文字があるから 特定の文字消す
+                var moji = selectCageKey[row]
+                if let range = moji.range(of: "匹入") {
+                    moji.replaceSubrange(range, with: "")
+                    QuantityXField.text = moji
+                }
+            }
+        } else {
+            // カゴ個数のTextFieldに入れる
+            selectAnyProduct.text = arrayAnyProduct[row]
+        }
     }
     
     
     
     func boxPickerCreate(){
-        
         // 名前選択時のピッカーView
         let pickerView2: UIPickerView = UIPickerView()
         // ピッカーの位置やサイズ
@@ -498,5 +590,53 @@ extension ViewControllerCreate2: UIPickerViewDelegate, UIPickerViewDataSource{
     @objc func doneButtonTapped (){
         // picker画面を消す
         vi.removeFromSuperview()
+    }
+    
+    
+    func selectCageCreate(){
+        // 名前選択時のピッカーView
+        let pickerView1: UIPickerView = UIPickerView()
+        // ピッカーの位置やサイズ
+        pickerView1.frame = CGRect(x: 0, y:0, width: UIScreen.main.bounds.size.width, height: pickerView1.bounds.size.height)
+        // ピッカーするべき設定
+        pickerView1.delegate = self
+        pickerView1.dataSource = self
+        
+        pickerView1.tag = 1
+        pickerView1.showsSelectionIndicator = true
+        pickerView1.backgroundColor = UIColor(red: 203.0 / 255.0, green: 230.0 / 255.0, blue: 243.0 / 255.0, alpha: 1.0)
+        // デフォルト設定　（始めにさす所）
+        pickerView1.selectRow(0, inComponent: 0, animated: false)
+        
+        // ピッカーを表示する画面
+        vi = UIView(frame: pickerView1.bounds)
+        vi.backgroundColor = UIColor.white
+        vi.addSubview(pickerView1)
+        
+        // ピッカーのツールバー
+        let toolBar = UIToolbar()
+        // ツールバー設定
+        toolBar.frame = CGRect(x: 0, y: 0, width: 320, height: 40)
+        // スタイルを設定
+        toolBar.barStyle = UIBarStyle.default
+        // 画面幅に合わせてサイズを変更
+        toolBar.sizeToFit()
+        // スペーサー
+        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
+        // 閉じるボタン
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(ViewControllerCreate2.doneButtonTapped))
+        // ツールバー追加
+        toolBar.items = [spacer, doneButton]
+        // 画面に追加
+        vi.addSubview(toolBar)
+        
+        // viをviewに追加し、下からアニメーション表示
+        view.addSubview(vi)
+        let screenSize = UIScreen.main.bounds.size
+        vi.frame.origin.y = screenSize.height
+        UIView.animate(withDuration: 0.3) {
+            self.vi.frame.origin.y = screenSize.height - self.vi.bounds.size.height * 2
+        }
+        
     }
 }
