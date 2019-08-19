@@ -129,7 +129,7 @@ class ViewControllerSend1: UIViewController , MFMailComposeViewControllerDelegat
     // 配列をcsvファイルに変換
     func toCSV(array: [sendData] ) -> String {
         // csvファイルかする文字列
-        var fileStrData = ""
+        var fileStrData = " \"日付\",\"行先\",\"生産者\",\"総尾数\",\"匹入り\",\"総重量\",\"カゴ重量\",\"水引き\",\"商品重量\",\"平均\" \n "
         //StringのCSV用データを準備
         for stu in array{
             // "/""  -> 文字列内で　"

@@ -45,7 +45,7 @@ class ViewControllerCreate2: UIViewController {
     var BoxAllData = [[String]]()
     // (商品の重さ カゴの個入り　半端数)
     var GproductAllData = [[String]]()
-    // どの個数入りのボタンが何回押された確認　オリジナル
+    // どの個数入りのボタンが何回押された確認
     var selectcage: [Int : Int] = [:]
     
     // selectcageのkeyだけの配列
@@ -205,8 +205,6 @@ class ViewControllerCreate2: UIViewController {
                                 // ボタン無効化する
                                 arrayQuantity[x].isEnabled = false // ボタン無効
                                 arrayQuantity[x].backgroundColor = UIColor.black
-                                // 使ったものは消す
-                                selectcage.removeValue(forKey:key)
                                 // 半端数ボタン無効化解除
                                 selectAnyProductBtn.isEnabled = false
                                 selectAnyProductBtn.backgroundColor = UIColor.black
@@ -229,10 +227,10 @@ class ViewControllerCreate2: UIViewController {
             }
             
             
-            print("商品保存")
-            print(WeightData)
-            print(QuantityData)
-            print(AnyProductData)
+//            print("商品保存")
+//            print(WeightData)
+//            print(QuantityData)
+//            print(AnyProductData)
             
             // tableView更新
             tableView.reloadData()
@@ -241,8 +239,16 @@ class ViewControllerCreate2: UIViewController {
     
     // 初期セット ボタン
     func setSelectCage(){
-        // seellctcageのkeyだけの配列  昇順
-        selectCageKey = [Int](selectcage.keys)
+        var ArrCopy = selectcage
+        for (key,value) in ArrCopy{
+            if value == 0{
+                // いらん匹入データ要素の削除
+                ArrCopy.removeValue(forKey:key)
+            }
+        }
+        // seellctcageのkeyだけの配列
+        selectCageKey = [Int](ArrCopy.keys)
+        
         print(selectCageKey)
         // 個入りのボタンか
         for x in 0 ... 7 {
@@ -282,10 +288,10 @@ class ViewControllerCreate2: UIViewController {
         // buletooth設定
         setup()
         
-        print("受け取りカゴデータ")
-        print(BoxAllData)
-        print("受け取り商品data")
-        print(GproductAllData)
+//        print("受け取りカゴデータ")
+//        print(BoxAllData)
+//        print("受け取り商品data")
+//        print(GproductAllData)
         print("匹入りカゴ確認\(selectcage)")
         
         
@@ -297,8 +303,8 @@ class ViewControllerCreate2: UIViewController {
                 AnyProductData.append(GproductAllData[2][x])
             }
         }
-        print(WeightData)
-        print(QuantityData)
+//        print(WeightData)
+//        print(QuantityData)
         
         
         // TableView用の初期設定  http://sayulemon46.hatenablog.com/entry/2017/03/06/171934
@@ -342,6 +348,8 @@ class ViewControllerCreate2: UIViewController {
             // ViewControllerCreate1 の変数を持ってくる？
             let vc: ViewControllerCreate1 = segue.destination as! ViewControllerCreate1
             vc.GproductAllData = productAllData
+            vc.Gselectcage = selectcage
+            print("匹入りカゴ確認view2\(selectcage)")
         }
         // "toCreate2ViewSegue"の名前の遷移のとき発動
         if (segue.identifier == "toCreate3ViewSegue") {

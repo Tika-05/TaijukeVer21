@@ -48,6 +48,8 @@ final class ViewControllerCreate1: UIViewController {
     var NameData = [String]()
     // from create2
     var GproductAllData = [[String]]()
+    // カゴの使用状況
+    var Gselectcage: [Int : Int] = [:]
     
     
     // TableView
@@ -55,6 +57,13 @@ final class ViewControllerCreate1: UIViewController {
     
     // 送る配列　　(商品の重さ カゴの個入り　半端数)
     var productAllData = [[String]]()
+    // 送る配列   どの個数入りのボタンが何回押された確認
+    var selectcage : [Int : Int] = [:]
+    // 編集されたの確認用  追加ボタン押された -> true
+    var saveFlag = false
+    // 編集された時の始まり添え字  ここから保存再開した
+    var saveFlagNum : Int = -1
+    
     
     // TableView に入るデータ
     // カゴの個数
@@ -91,7 +100,7 @@ final class ViewControllerCreate1: UIViewController {
     // ピッカー画面
     var vi: UIView = UIView()
     // カゴの個数設定
-    var arrayPickBox : [String] = ["","1","2","3","4","5","6","7","8","9","10","11"]
+    var arrayPickBox : [String] = ["","1","2","3","4","5","6","7","8","9","10"]
     // 選択中の入力するカゴの個数
     @IBOutlet weak var selectBox: UITextField!
     
@@ -147,25 +156,35 @@ final class ViewControllerCreate1: UIViewController {
     
     // 保存ボタン押された時発動
     @IBAction func saveClick(_ sender: Any) {
-        
-        // 保存用(テーブル表示用)の配列の[0]番目に代入する
-        // X個入りに対応
-        if QuantityXField.isEnabled == true{
-            QuantityData.insert(QuantityXField.text ?? "", at: 0)
-        }else{
-            QuantityData.insert(selectQuantity, at: 0)
+        // 値が入ってないなら無視
+        //  (WeightLabel2.text != "" || WeightLabel2.text != "0.0") &&    <- 実験用に外したhgoasgalgalhglkawghhhhhhhhhjgkdslalakjsglksagjaslgjlasjglasglagalskdjglasjglajglajsglajsldgjaslgjalsgjlasdjglasgasglka
+        if (selectQuantity != "" || QuantityXField.text != "") && selectBox.text != ""{
+            
+            // 保存用(テーブル表示用)の配列の[0]番目に代入する
+            // X個入りに対応
+            if QuantityXField.isEnabled == true{
+                QuantityData.insert(QuantityXField.text ?? "", at: 0)
+            }else{
+                QuantityData.insert(selectQuantity, at: 0)
+            }
+            
+            BoxData.insert(selectBox.text!, at: 0)
+            WeightData.insert(WeightLabel.text!, at: 0)
+            
+            print("カゴ保存")
+            print(WeightData)
+            print(QuantityData)
+            print(BoxData)
+            
+            // このViewに来て初めて保存する時
+            if saveFlag == false{
+                saveFlag = true
+                saveFlagNum = QuantityData.count - 1
+            }
+            
+            // tableView更新
+            tableView.reloadData()
         }
-        
-        BoxData.insert(selectBox.text!, at: 0)
-        WeightData.insert(WeightLabel.text!, at: 0)
-        
-        print("カゴ保存")
-        print(WeightData)
-        print(QuantityData)
-        print(BoxData)
-        
-        // tableView更新
-        tableView.reloadData()
     }
     
     
@@ -174,6 +193,10 @@ final class ViewControllerCreate1: UIViewController {
     // ViewControllerCreate2から戻る時に
     @IBAction func backToCreate1(segue: UIStoryboardSegue) {
         productAllData = GproductAllData
+        selectcage = Gselectcage
+        // リセットする　編集したかどうか
+        saveFlag = false
+        print("匹入りカゴ確認view1\(selectcage)")
     }
     
     override func viewDidLoad() {
@@ -206,7 +229,6 @@ final class ViewControllerCreate1: UIViewController {
         // falseなら操作不可  半端数ボタンが押された時に操作可能に
         QuantityXField.isEnabled = false
         
-        
     }
     
     // 画面遷移で値渡す-------------------------------------------------------------------------------------------------------------------------
@@ -226,18 +248,29 @@ final class ViewControllerCreate1: UIViewController {
         // 今回使われた何個入りをまとめる  被りを消す
         let orderedSet = NSOrderedSet(array: QuantityData)
         let uniqueValues = orderedSet.array as! [String]
-        // どの個数入りのボタンが何回押された確認
-        var selectcage : [Int : Int] = [:]
+        
         for task in uniqueValues{
             var n = 0
-            for x in 0 ..< QuantityData.count {
+            print(saveFlagNum)
+            for x in saveFlagNum ..< QuantityData.count {
                 if task == QuantityData[x]{
                     n += Int(BoxData[x]) ?? 0
                 }
             }
             if n > 0 {
-                // どの匹入りがどんだけ押されたか確認するために送るデータ (辞書)
-                selectcage.updateValue(n, forKey: Int(task)!)
+                var flag = false
+                for (key,value) in selectcage{
+                    if String(key) == task {
+                        flag = true
+                        if value != 0{
+                            selectcage[key]  = selectcage[key] ?? 0  + n
+                        }
+                    }
+                }
+                if flag == false{
+                    // どの匹入りがどんだけ押されたか確認するために送るデータ (辞書)
+                    selectcage.updateValue(n, forKey: Int(task) ?? 0)
+                }
             }
         }
 
