@@ -249,43 +249,47 @@ final class ViewControllerCreate1: UIViewController {
         BoxAllData.append(QuantityData)
         BoxAllData.append(BoxData)
         
-        // 今回使われた何個入りをまとめる  被りを消す
-        let orderedSet = NSOrderedSet(array: QuantityData)
-        let uniqueValues = orderedSet.array as! [String]
-        // QuantityData のコピー　逆にする
-        var ArrCopy = Array(QuantityData.reversed())
-        
-        for task in uniqueValues{
-            var n = 0
-            print("saveFlagNum : \(saveFlagNum)")
-            for x in saveFlagNum ..< ArrCopy.count {
-                if task == ArrCopy[x]{
-                    n += Int(BoxData[ArrCopy.count-x-1]) ?? 0
-                }
-            }
-            print("n : \(n)")
-            if n > 0 {
-                var flag = false
-                for (key,value) in selectcage{
-                    if String(key) == task {
-                        flag = true
-                        if value == -1 {
-                            print("N : \(n)")
-                            selectcage[key] = n
-                            print("\(key)  selectcage[key] : \(selectcage[key] ?? 0)")
-                        }else{
-                            print("N : \(n)")
-                            selectcage[key] = selectcage[key] ?? 0  + n
-                            print("\(key)  selectcage[key] : \(selectcage[key] ?? 0)")
-                        }
+        // 編集追加された時
+        if saveFlag{
+            // 今回使われた何個入りをまとめる  被りを消す
+            let orderedSet = NSOrderedSet(array: QuantityData)
+            let uniqueValues = orderedSet.array as! [String]
+            // QuantityData のコピー　逆にする
+            var ArrCopy = Array(QuantityData.reversed())
+            
+            for task in uniqueValues{
+                var n = 0
+                print("saveFlagNum : \(saveFlagNum)")
+                for x in saveFlagNum ..< ArrCopy.count {
+                    if task == ArrCopy[x]{
+                        n += Int(BoxData[ArrCopy.count-x-1]) ?? 0
                     }
                 }
-                if flag == false{
-                    // どの匹入りがどんだけ押されたか確認するために送るデータ (辞書)
-                    selectcage.updateValue(n, forKey: Int(task) ?? 0)
+                print("n : \(n)")
+                if n > 0 {
+                    var flag = false
+                    for (key,value) in selectcage{
+                        if String(key) == task {
+                            flag = true
+                            if value == -1 {
+                                print("N : \(n)")
+                                selectcage[key] = n
+                                print("\(key)  selectcage[key] : \(selectcage[key] ?? 0)")
+                            }else{
+                                print("N : \(n)")
+                                selectcage[key] = selectcage[key]! + n
+                                print("\(key)  selectcage[key] : \(selectcage[key] ?? 0)")
+                            }
+                        }
+                    }
+                    if flag == false{
+                        // どの匹入りがどんだけ押されたか確認するために送るデータ (辞書)
+                        selectcage.updateValue(n, forKey: Int(task) ?? 0)
+                    }
                 }
             }
         }
+        
 
         // 別のView に送信
         // "toCreate2ViewSegue"の名前の遷移のとき発動
