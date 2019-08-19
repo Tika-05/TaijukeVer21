@@ -270,10 +270,12 @@ final class ViewControllerCreate1: UIViewController {
                     if String(key) == task {
                         flag = true
                         if value == -1 {
-                            selectcage[key] = selectcage[key] ?? 0  + n + 1
+                            print("N : \(n)")
+                            selectcage[key] = n
                             print("\(key)  selectcage[key] : \(selectcage[key] ?? 0)")
                         }else{
-                            selectcage[key]  = selectcage[key] ?? 0  + n
+                            print("N : \(n)")
+                            selectcage[key] = selectcage[key] ?? 0  + n
                             print("\(key)  selectcage[key] : \(selectcage[key] ?? 0)")
                         }
                     }
