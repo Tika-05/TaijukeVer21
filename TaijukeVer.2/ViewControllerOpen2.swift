@@ -148,6 +148,8 @@ class ViewControllerOpen2: UIViewController {
                 TField.backgroundColor = UIColor.white
                 TField.textAlignment = NSTextAlignment.center
                 TField.textColor = UIColor.black
+                // キーボードは数字のみ
+                TField.keyboardType = UIKeyboardType.numberPad
                 switch x{
                 case 1: // 総尾数
                     TField.text = String(Sdata[y].allNum)

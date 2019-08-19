@@ -171,6 +171,8 @@ class ViewControllerCreate3: UIViewController {
                 TField.backgroundColor = UIColor.white
                 TField.textAlignment = NSTextAlignment.center
                 TField.textColor = UIColor.black
+                // キーボードは数字のみ
+                TField.keyboardType = UIKeyboardType.numberPad
                 switch x{
                 case 1: // 総尾数の計算
                     var count = 0

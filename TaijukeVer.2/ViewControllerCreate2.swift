@@ -194,8 +194,10 @@ class ViewControllerCreate2: UIViewController {
                 print("key : \(key)   selectQuantity : \(selectQuantity)")
                 
                 if key == Int(selectQuantity) || key == Int(QuantityXField.text!){
-                    // オリジナルに上書き
-                    selectcage[key] = selectcage[key]! - 1
+                    if value != 0 {
+                        // オリジナルに上書き
+                        selectcage[key] = selectcage[key]! - 1
+                    }
                     for x in 0 ..< arrayQuantity.count{
                         if selectQuantity == String(arrayQuantity[x].tag){
                             // 使用されたから1減らす
@@ -209,10 +211,12 @@ class ViewControllerCreate2: UIViewController {
                                 selectAnyProductBtn.isEnabled = false
                                 selectAnyProductBtn.backgroundColor = UIColor.black
                                 selectQuantity = ""
+                                // こっちの画面に来た事の目印
+                                selectcage[key] = -1
                             }
                         }
                     }
-                    if value < 0{
+                    if value <= 0 {
                         // ピッカー用に使ったもの消す
                         let _set: NSSet = NSSet(array: selectCageKey)
                         if(_set.contains(key)){
@@ -221,7 +225,9 @@ class ViewControllerCreate2: UIViewController {
                         // 半端数ボタン無効化解除
                         selectAnyProductBtn.isEnabled = false
                         selectAnyProductBtn.backgroundColor = UIColor.black
-                        selectQuantity = ""
+                        QuantityXField.text = ""
+                        // こっちの画面に来た事の目印
+                        selectcage[key] = -1
                     }
                 }
             }
@@ -241,7 +247,7 @@ class ViewControllerCreate2: UIViewController {
     func setSelectCage(){
         var ArrCopy = selectcage
         for (key,value) in ArrCopy{
-            if value == 0{
+            if value < 0{
                 // いらん匹入データ要素の削除
                 ArrCopy.removeValue(forKey:key)
             }
@@ -317,6 +323,10 @@ class ViewControllerCreate2: UIViewController {
         // ボタン無効化する
         selectAnyProductBtn.isEnabled = false // ボタン無効
         selectAnyProductBtn.backgroundColor = UIColor.black
+        
+        // キーボードは数字のみ
+        self.QuantityXField.keyboardType = UIKeyboardType.numberPad
+        self.selectAnyProduct.keyboardType = UIKeyboardType.numberPad
         
         
         // 個入りの配列にまとめて追加

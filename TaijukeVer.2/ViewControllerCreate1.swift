@@ -108,7 +108,6 @@ final class ViewControllerCreate1: UIViewController {
     
     
     
-    
     // 個入りのボタンが押された時発動
     @IBAction func onClick(_ sender: UIButton) {
         
@@ -178,6 +177,7 @@ final class ViewControllerCreate1: UIViewController {
             
             // このViewに来て初めて保存する時
             if saveFlag == false{
+                print("false -> true")
                 saveFlag = true
                 saveFlagNum = QuantityData.count - 1
             }
@@ -229,6 +229,10 @@ final class ViewControllerCreate1: UIViewController {
         // falseなら操作不可  半端数ボタンが押された時に操作可能に
         QuantityXField.isEnabled = false
         
+        // キーボードは数字のみ
+        self.QuantityXField.keyboardType = UIKeyboardType.numberPad
+        self.selectBox.keyboardType = UIKeyboardType.numberPad
+        
     }
     
     // 画面遷移で値渡す-------------------------------------------------------------------------------------------------------------------------
@@ -248,22 +252,29 @@ final class ViewControllerCreate1: UIViewController {
         // 今回使われた何個入りをまとめる  被りを消す
         let orderedSet = NSOrderedSet(array: QuantityData)
         let uniqueValues = orderedSet.array as! [String]
+        // QuantityData のコピー　逆にする
+        var ArrCopy = Array(QuantityData.reversed())
         
         for task in uniqueValues{
             var n = 0
-            print(saveFlagNum)
-            for x in saveFlagNum ..< QuantityData.count {
-                if task == QuantityData[x]{
-                    n += Int(BoxData[x]) ?? 0
+            print("saveFlagNum : \(saveFlagNum)")
+            for x in saveFlagNum ..< ArrCopy.count {
+                if task == ArrCopy[x]{
+                    n += Int(BoxData[ArrCopy.count-x-1]) ?? 0
                 }
             }
+            print("n : \(n)")
             if n > 0 {
                 var flag = false
                 for (key,value) in selectcage{
                     if String(key) == task {
                         flag = true
-                        if value != 0{
+                        if value == -1 {
+                            selectcage[key] = selectcage[key] ?? 0  + n + 1
+                            print("\(key)  selectcage[key] : \(selectcage[key] ?? 0)")
+                        }else{
                             selectcage[key]  = selectcage[key] ?? 0  + n
+                            print("\(key)  selectcage[key] : \(selectcage[key] ?? 0)")
                         }
                     }
                 }
