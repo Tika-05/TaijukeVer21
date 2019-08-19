@@ -108,6 +108,8 @@ class ViewControllerCreate2: UIViewController {
     
     // 個入りのボタンが押された時発動
     @IBAction func onClick(_ sender: UIButton) {
+        // 半端数リセット
+        selectAnyProduct.text = ""
         // trueなら操作可、falseなら操作不可
         QuantityXField.isEnabled = false;
         QuantityXField.text = ""
@@ -131,6 +133,8 @@ class ViewControllerCreate2: UIViewController {
     }
     // X匹入ボタン押された時発動
     @IBAction func QauntityXClick(_ sender: UIButton) {
+        // 半端数リセット
+        selectAnyProduct.text = ""
         // trueなら操作可、falseなら操作不可
         QuantityXField.isEnabled = true
         
@@ -254,6 +258,8 @@ class ViewControllerCreate2: UIViewController {
         }
         // seellctcageのkeyだけの配列
         selectCageKey = [Int](ArrCopy.keys)
+        // 配列昇順
+        selectCageKey = Array(selectCageKey.sorted{ $0 < $1 })
         
         print(selectCageKey)
         // 個入りのボタンか
