@@ -144,7 +144,7 @@ class ViewControllerCreate3: UIViewController {
                 Thead.text = String()
             }
             Thead.backgroundColor = UIColor.white
-            Thead.frame = CGRect(x: x*100-50, y: 50+330, width: 80, height: 30)
+            Thead.frame = CGRect(x: x*100-40, y: 50+330, width: 80, height: 30)
             Thead.textAlignment = NSTextAlignment.center
             Thead.textColor = UIColor.black
             self.view.addSubview(Thead)
@@ -167,7 +167,7 @@ class ViewControllerCreate3: UIViewController {
             for x in 1...7 {
                 // 値表示TextField
                 let TField = UITextField()
-                TField.frame = CGRect(x: x*100-50, y: (y+1)*50+380, width: 80, height: 30)
+                TField.frame = CGRect(x: x*100-40, y: (y+1)*35+400, width: 80, height: 30)
                 TField.backgroundColor = UIColor.white
                 TField.textAlignment = NSTextAlignment.center
                 TField.textColor = UIColor.black
@@ -242,7 +242,7 @@ class ViewControllerCreate3: UIViewController {
                 
                 // 間の記号
                 let Tmark = UILabel()
-                Tmark.frame = CGRect(x: x*100+25, y: (y+1)*50+380, width: 30, height: 30)
+                Tmark.frame = CGRect(x: x*100+35, y: (y+1)*35+400, width: 30, height: 30)
                 switch x{
                 case 1:
                     Tmark.text = String()

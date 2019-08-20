@@ -212,16 +212,18 @@ class ViewControllerCreate2: UIViewController {
                                 // ボタン無効化する
                                 arrayQuantity[x].isEnabled = false // ボタン無効
                                 arrayQuantity[x].backgroundColor = UIColor.black
+                                arrayQuantity[x].alpha = 0.3
                                 // 半端数ボタン無効化解除
                                 selectAnyProductBtn.isEnabled = false
                                 selectAnyProductBtn.backgroundColor = UIColor.black
+                                selectAnyProductBtn.alpha = 0.3
                                 selectQuantity = ""
                                 // こっちの画面に来た事の目印
                                 selectcage[key] = -1
                             }
                         }
                     }
-                    if value <= 0 {
+                    if value <= 1 {
                         // ピッカー用に使ったもの消す
                         let _set: NSSet = NSSet(array: selectCageKey)
                         if(_set.contains(key)){
@@ -230,6 +232,7 @@ class ViewControllerCreate2: UIViewController {
                         // 半端数ボタン無効化解除
                         selectAnyProductBtn.isEnabled = false
                         selectAnyProductBtn.backgroundColor = UIColor.black
+                        selectAnyProductBtn.alpha = 0.3
                         QuantityXField.text = ""
                         // こっちの画面に来た事の目印
                         selectcage[key] = -1
@@ -270,6 +273,7 @@ class ViewControllerCreate2: UIViewController {
                 // ボタン無効化する
                 arrayQuantity[x].isEnabled = false // ボタン無効
                 arrayQuantity[x].backgroundColor = UIColor.black
+                arrayQuantity[x].alpha = 0.3
             }
             // 最大のものからタグ設定する  ボタンにする
             for (key,value) in selectcage{
@@ -286,6 +290,7 @@ class ViewControllerCreate2: UIViewController {
             if selectCageKey.isEmpty{
                 QuantityX.isEnabled = false // ボタン無効
                 QuantityX.backgroundColor = UIColor.black
+                QuantityX.alpha = 0.3
             }
         }
     }
@@ -333,6 +338,7 @@ class ViewControllerCreate2: UIViewController {
         // ボタン無効化する
         selectAnyProductBtn.isEnabled = false // ボタン無効
         selectAnyProductBtn.backgroundColor = UIColor.black
+        selectAnyProductBtn.alpha = 0.3
         
         // キーボードは数字のみ
         self.QuantityXField.keyboardType = UIKeyboardType.numberPad

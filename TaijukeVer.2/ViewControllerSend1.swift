@@ -93,13 +93,13 @@ class ViewControllerSend1: UIViewController , MFMailComposeViewControllerDelegat
         print("メーラー開きます")
         
         let mailViewController = MFMailComposeViewController()
-//        var toRecipients = ["to@1gmail.com"] //Toのアドレス指定
+        let toRecipients = ["toba.kaihatsu@gmail.com"] //Toのアドレス指定
 //        var CcRecipients = ["cc@1gmail.com","Cc2@1gmail.com"] //Ccのアドレス指定
 //        var BccRecipients = ["Bcc@1gmail.com","Bcc2@1gmail.com"] //Bccのアドレス指定
         
         mailViewController.mailComposeDelegate = self
         mailViewController.setSubject("メールの件名")
-//        mailViewController.setToRecipients(toRecipients) //Toアドレスの表示
+        mailViewController.setToRecipients(toRecipients) //Toアドレスの表示
 //        mailViewController.setCcRecipients(CcRecipients) //Ccアドレスの表示
 //        mailViewController.setBccRecipients(BccRecipients) //Bccアドレスの表示
         mailViewController.setMessageBody("メールの本文", isHTML: false)
