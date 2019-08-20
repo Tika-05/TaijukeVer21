@@ -411,18 +411,23 @@ extension ViewControllerCreate1: CBPeripheralDelegate {
         
         var weight = Double( Int(reportData[2]) * 255 + Int(reportData[3]) ) / 10.0
         
-        // 変な値除去する
-        if weight == 6451.5 {
-            weight = Sweight
-        }else if weight == 6451.6 {
-            weight = Sweight
-        }else if weight == 6478.5 {
-            weight = Sweight
-        }else if weight == 6477.0{
-            weight = Sweight
-        }else if weight == 6477.1{
-            weight = Sweight
-        }else if weight == 6477.7{
+//        // 変な値除去する
+//        if weight == 6451.5 {
+//            weight = Sweight
+//        }else if weight == 6451.6 {
+//            weight = Sweight
+//        }else if weight == 6478.5 {
+//            weight = Sweight
+//        }else if weight == 6477.0{
+//            weight = Sweight
+//        }else if weight == 6477.1{
+//            weight = Sweight
+//        }else if weight == 6477.7{
+//            weight = Sweight
+//        }
+        
+         //変な値除去する
+        if weight > 200.0 {
             weight = Sweight
         }
         
