@@ -16,7 +16,7 @@ class ViewControllerCreate0: UIViewController {
     var vi: UIView = UIView()
     // 名前選択用配列
     var arrayPickName : [String] = ["","羽山","川島","マルタ","丸銀"]
-    var arrayPickName2 : [String] = ["","あっち","こっち","そっち","どっち"]
+    var arrayPickName2 : [String] = ["","佐藤","田中","中世古","千波"]
     // 選択中の入力する行先
     @IBOutlet weak var selectName: UITextField!
     // 生産者

@@ -144,7 +144,7 @@ class ViewControllerCreate3: UIViewController {
                 Thead.text = String()
             }
             Thead.backgroundColor = UIColor.white
-            Thead.frame = CGRect(x: x*100-40, y: 50+330, width: 80, height: 30)
+            Thead.frame = CGRect(x: x*100-60, y: 50+335, width: 80, height: 30)
             Thead.textAlignment = NSTextAlignment.center
             Thead.textColor = UIColor.black
             self.view.addSubview(Thead)
@@ -167,7 +167,7 @@ class ViewControllerCreate3: UIViewController {
             for x in 1...7 {
                 // 値表示TextField
                 let TField = UITextField()
-                TField.frame = CGRect(x: x*100-40, y: (y+1)*35+400, width: 80, height: 30)
+                TField.frame = CGRect(x: x*100-60, y: (y+1)*40+390, width: 80, height: 30)
                 TField.backgroundColor = UIColor.white
                 TField.textAlignment = NSTextAlignment.center
                 TField.textColor = UIColor.black
@@ -204,7 +204,7 @@ class ViewControllerCreate3: UIViewController {
                         }
                         count += 1
                     }
-                    TField.text = String(ColumnData[2])
+                    TField.text = String(format: "%.2f",ColumnData[2])
                     ColumnTextField.append(TField)
                     break
                 case 4: // カゴ総重量
@@ -216,7 +216,7 @@ class ViewControllerCreate3: UIViewController {
                         }
                         count += 1
                     }
-                    TField.text = String(ColumnData[3])
+                    TField.text = String(format: "%.2f",ColumnData[3])
                     ColumnTextField.append(TField)
                     break
                 case 5: // 水引き
@@ -226,12 +226,12 @@ class ViewControllerCreate3: UIViewController {
                     break
                 case 6: // 商品だけの総重量
                     ColumnData[5] = (ColumnData[2] - ColumnData[3]) * ColumnData[4]
-                    TField.text = String(ColumnData[5])
+                    TField.text = String(format: "%.2f",ColumnData[5])
                     ColumnTextField.append(TField)
                     break
                 case 7: // 商品だけの平均
                     ColumnData[6] = ColumnData[5] / Double(ColumnData[0])
-                    TField.text = String(ColumnData[6])
+                    TField.text = String(format: "%.2f",ColumnData[6])
                     ColumnTextField.append(TField)
                     break
                 default:
@@ -242,7 +242,7 @@ class ViewControllerCreate3: UIViewController {
                 
                 // 間の記号
                 let Tmark = UILabel()
-                Tmark.frame = CGRect(x: x*100+35, y: (y+1)*35+400, width: 30, height: 30)
+                Tmark.frame = CGRect(x: x*100+15, y: (y+1)*40+390, width: 30, height: 30)
                 switch x{
                 case 1:
                     Tmark.text = String()
