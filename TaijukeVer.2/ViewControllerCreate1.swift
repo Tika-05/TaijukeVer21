@@ -429,6 +429,7 @@ extension ViewControllerCreate1: CBPeripheralDelegate {
          //変な値除去する
         if weight > 200.0 {
             weight = Sweight
+            print("Sweight : \(Sweight)")
         }
         
         print("重さ : \(weight)")

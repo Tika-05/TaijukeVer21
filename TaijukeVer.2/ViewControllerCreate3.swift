@@ -72,7 +72,7 @@ class ViewControllerCreate3: UIViewController {
     var ArrayTextField = [[UITextField]]()
     
     
-    // 初期動作
+    // 初期動作 ------------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         

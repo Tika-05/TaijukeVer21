@@ -32,7 +32,8 @@ class ViewControllerCreate2: UIViewController {
         charcteristicUUID = CBUUID(string: kCharacteristcUUID)
     }
     
-    
+    // 変な値に対応するように値を保存する
+    var Sweight = 0.0
     
     
     
@@ -291,6 +292,9 @@ class ViewControllerCreate2: UIViewController {
     
     
     // 初期処理 ------------------------------------------------------------------------------------------------------------------------------
+    // ViewControllerCreate3から戻る時に
+    @IBAction func backToCreate2(segue: UIStoryboardSegue) {}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -483,9 +487,14 @@ extension ViewControllerCreate2: CBPeripheralDelegate {
         let reportData = data.withUnsafeBytes {
             [UInt8](UnsafeBufferPointer(start: $0.baseAddress!.assumingMemoryBound( to: UInt8.self ), count:8))
         }
-        let taiju = Int(reportData[2]) * 255 + Int(reportData[3]) //+ 50 //-206
         
-        let weight = Double(taiju) / 10.0
+        var weight = Double( Int(reportData[2]) * 255 + Int(reportData[3]) ) / 10.0
+        
+        //変な値除去する
+        if weight > 200.0 {
+            weight = Sweight
+            print("Sweight : \(Sweight)")
+        }
         print("重さ : \(weight)")
         // 代入する重さLabelへ
         WeightLabel2.text = String(weight)
