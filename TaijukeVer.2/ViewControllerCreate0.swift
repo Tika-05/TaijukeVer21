@@ -177,7 +177,7 @@ extension ViewControllerCreate0: UIPickerViewDelegate, UIPickerViewDataSource{
         let screenSize = UIScreen.main.bounds.size
         vi.frame.origin.y = screenSize.height
         UIView.animate(withDuration: 0.3) {
-            self.vi.frame.origin.y = screenSize.height - self.vi.bounds.size.height * 2
+            self.vi.frame.origin.y = screenSize.height - self.vi.bounds.size.height
         }
 
     }
@@ -225,7 +225,7 @@ extension ViewControllerCreate0: UIPickerViewDelegate, UIPickerViewDataSource{
         let screenSize = UIScreen.main.bounds.size
         vi.frame.origin.y = screenSize.height
         UIView.animate(withDuration: 0.3) {
-            self.vi.frame.origin.y = screenSize.height - self.vi.bounds.size.height * 2
+            self.vi.frame.origin.y = screenSize.height - self.vi.bounds.size.height
         }
         
     }
