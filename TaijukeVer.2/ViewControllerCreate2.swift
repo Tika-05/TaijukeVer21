@@ -36,7 +36,6 @@ class ViewControllerCreate2: UIViewController {
     var Sweight = 0.0
     
     
-    
     // アプリ本体 ---------------------------------------------------------------------------------------------------------------------------
     
     // ViewControllerCreateViewからのデータの配列
@@ -494,16 +493,34 @@ extension ViewControllerCreate2: CBPeripheralDelegate {
             [UInt8](UnsafeBufferPointer(start: $0.baseAddress!.assumingMemoryBound( to: UInt8.self ), count:8))
         }
         
+        
         var weight = Double( Int(reportData[2]) * 255 + Int(reportData[3]) ) / 10.0
+        
+        //        // 変な値除去する
+        //        if weight == 6451.5 {
+        //            weight = Sweight
+        //        }else if weight == 6451.6 {
+        //            weight = Sweight
+        //        }else if weight == 6478.5 {
+        //            weight = Sweight
+        //        }else if weight == 6477.0{
+        //            weight = Sweight
+        //        }else if weight == 6477.1{
+        //            weight = Sweight
+        //        }else if weight == 6477.7{
+        //            weight = Sweight
+        //        }
         
         //変な値除去する
         if weight > 200.0 {
             weight = Sweight
             print("Sweight : \(Sweight)")
         }
+        
         print("重さ : \(weight)")
         // 代入する重さLabelへ
         WeightLabel2.text = String(weight)
+        Sweight = weight
         
     }
 }
