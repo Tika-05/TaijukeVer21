@@ -14,12 +14,20 @@ final class ViewControllerCreate1: UIViewController {
     
     //Central : 本アプリ
     //Peripheral : 体重計
-
-    //GATTServive
-    let kServiveUUID = "0000ffb0-0000-1000-8000-00805f9b34fb"
     
+    //GATTServive
+    let kServiveUUID = "0000FFE0-0000-1000-8000-00805f9b34fb"
+    
+    // GATTServive の中の GATTCharacteristc
     //GATTCharacteristc
-    let kCharacteristcUUID = "0000ffb2-0000-1000-8000-00805f9b34fb"
+    let kCharacteristcUUID = "0000FFE1-0000-1000-8000-00805f9b34fb"
+    
+    //    // 元の体重計 スワン
+    //    //GATTServive
+    //    let kServiveUUID = "0000ffb0-0000-1000-8000-00805f9b34fb"
+    //
+    //    //GATTCharacteristc
+    //    let kCharacteristcUUID = "0000ffb2-0000-1000-8000-00805f9b34fb"
     
     var centralManager: CBCentralManager!
     var peripheral: CBPeripheral!
@@ -33,8 +41,8 @@ final class ViewControllerCreate1: UIViewController {
         charcteristicUUID = CBUUID(string: kCharacteristcUUID)
     }
 
-    // 変な値に対応するように値を保存する
-    var Sweight = 0.0
+//    // 変な値に対応するように値を保存する
+//    var Sweight = 0.0
     
     
     
@@ -404,13 +412,33 @@ extension ViewControllerCreate1: CBPeripheralDelegate {
     private func updateWithData(data : Data) {
         print(#function)
         
-        let reportData = data.withUnsafeBytes {
-            [UInt8](UnsafeBufferPointer(start: $0.baseAddress!.assumingMemoryBound( to: UInt8.self ), count:8))
+        var reportData = data.withUnsafeBytes {
+            [UInt8](UnsafeBufferPointer(start: $0.baseAddress!.assumingMemoryBound( to: UInt8.self ), count:7))
         }
         
         
-        var weight = Double( Int(reportData[2]) * 255 + Int(reportData[3]) ) / 10.0
+        var weight = 0.0
+        for i in 0 ..< 7{
+            if Int(reportData[i]) != 0{
+                if Int(reportData[i]) != 32{
+                    reportData[i] -= 48
+                    weight += Double(Int(String(reportData[i]), radix: 16)!) * pow(10.0, Double(6-i))
+                }
+            }
+        }
+        weight /= 100.0
         
+        print("重さ : \(data) = \(reportData)")
+        print("weight : \(weight)")
+        
+//
+//        let reportData = data.withUnsafeBytes {
+//            [UInt8](UnsafeBufferPointer(start: $0.baseAddress!.assumingMemoryBound( to: UInt8.self ), count:8))
+//        }
+//
+//
+//        var weight = Double( Int(reportData[2]) * 255 + Int(reportData[3]) ) / 10.0
+//
 //        // 変な値除去する
 //        if weight == 6451.5 {
 //            weight = Sweight
@@ -425,17 +453,15 @@ extension ViewControllerCreate1: CBPeripheralDelegate {
 //        }else if weight == 6477.7{
 //            weight = Sweight
 //        }
+//
+//         //変な値除去する
+//        if weight > 200.0 {
+//            weight = Sweight
+//            print("Sweight : \(Sweight)")
+//        }
         
-         //変な値除去する
-        if weight > 200.0 {
-            weight = Sweight
-            print("Sweight : \(Sweight)")
-        }
-        
-        print("重さ : \(weight)")
         // 代入する重さLabelへ
         WeightLabel.text = String(weight)
-        Sweight = weight
         
     }
 }
