@@ -838,6 +838,32 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WgO-mv-yKb">
+                                <rect key="frame" x="473" y="108" width="115" height="87"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="50"/>
+                                <color key="textColor" red="0.26229053740000002" green="0.72855871920000004" blue="0.610555768" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="計測中 ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bz-Fa-wNf">
+                                <rect key="frame" x="202" y="89" width="362" height="106"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="40"/>
+                                <color key="textColor" red="0.23485770819999999" green="0.73257535699999998" blue="0.61051487920000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.23485770819999999" green="0.73257535699999998" blue="0.61051487920000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRD-G7-VT0">
                                 <rect key="frame" x="28" y="285" width="160" height="77"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1294,13 +1320,6 @@
                                 <rect key="frame" x="558" y="73" width="203" height="140"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WgO-mv-yKb">
-                                <rect key="frame" x="473" y="108" width="115" height="87"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="50"/>
-                                <color key="textColor" red="0.26229053740000002" green="0.72855871920000004" blue="0.610555768" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.98786978829829919" blue="0.91612829845400778" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="uVg-Rz-Lal"/>
@@ -1318,6 +1337,7 @@
                         <outlet property="QuantityX" destination="ci0-Zk-kYY" id="r3f-0R-tke"/>
                         <outlet property="QuantityXField" destination="eAo-NZ-mgr" id="Czq-2S-egp"/>
                         <outlet property="WeightLabel" destination="Kmw-pM-ROU" id="Y05-Zi-fNN"/>
+                        <outlet property="measuringLabel" destination="9bz-Fa-wNf" id="NyC-FO-ldh"/>
                         <outlet property="selectBox" destination="f0o-Gg-oTd" id="PA9-UF-2gu"/>
                         <outlet property="tableView" destination="ZBe-Jf-5Pf" id="Mvk-Ie-rMG"/>
                     </connections>
@@ -1859,11 +1879,30 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYn-mX-CEU">
-                                <rect key="frame" x="450" y="111" width="115" height="87"/>
+                                <rect key="frame" x="472" y="111" width="93" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="50"/>
                                 <color key="textColor" red="0.26229053740000002" green="0.72855871920000004" blue="0.610555768" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="計測中 ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBu-ld-sCx">
+                                <rect key="frame" x="203" y="89" width="362" height="107"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="40"/>
+                                <color key="textColor" red="0.23485770819999999" green="0.73257535699999998" blue="0.61051487920000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.23485770819999999" green="0.73257535699999998" blue="0.61051487920000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="60"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.96377748250961304" green="0.89840581074152903" blue="0.91974174813048482" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1881,6 +1920,7 @@
                         <outlet property="QuantityX" destination="bwx-da-2V9" id="hXP-gy-QXf"/>
                         <outlet property="QuantityXField" destination="pww-s8-EgH" id="GPe-5a-utH"/>
                         <outlet property="WeightLabel2" destination="JDN-KG-gkf" id="otE-oK-PQa"/>
+                        <outlet property="measuringLabel2" destination="IBu-ld-sCx" id="aAb-SK-GUz"/>
                         <outlet property="selectAnyProduct" destination="4TZ-l0-mCU" id="dlz-Xh-csD"/>
                         <outlet property="selectAnyProductBtn" destination="ubm-Wr-fO9" id="Hvu-ku-bSh"/>
                         <outlet property="tableView" destination="1vg-lY-iWZ" id="W3V-Lp-SAL"/>
