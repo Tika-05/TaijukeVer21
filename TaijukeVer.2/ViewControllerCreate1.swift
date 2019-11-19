@@ -84,6 +84,9 @@ final class ViewControllerCreate1: UIViewController {
     
     // 重さLabel
     @IBOutlet weak var WeightLabel: UILabel!
+    // 計測中ラベル
+    @IBOutlet weak var measuringLabel: UILabel!
+    
     
     
     // 個入り設定
@@ -163,35 +166,42 @@ final class ViewControllerCreate1: UIViewController {
     
     // 保存ボタン押された時発動
     @IBAction func saveClick(_ sender: Any) {
-        // 値が入ってないなら無視
-        //  (WeightLabel2.text != "" || WeightLabel2.text != "0.0") &&    <- 実験用に外したhgoasgalgalhglkawghhhhhhhhhjgkdslalakjsglksagjaslgjlasjglasglagalskdjglasjglajglajsglajsldgjaslgjalsgjlasdjglasgasglka
-        if (selectQuantity != "" || QuantityXField.text != "") && selectBox.text != ""{
+        
+        // 計測中か確認
+        if WeightLabel.isHidden == false{
             
-            // 保存用(テーブル表示用)の配列の[0]番目に代入する
-            // X個入りに対応
-            if QuantityXField.isEnabled == true{
-                QuantityData.insert(QuantityXField.text ?? "", at: 0)
-            }else{
-                QuantityData.insert(selectQuantity, at: 0)
+            // 値が入ってないなら無視
+            //  (WeightLabel2.text != "" || WeightLabel2.text != "0.0") &&    <- 実験用に外したhgoasgalgalhglkawghhhhhhhhhjgkdslalakjsglksagjaslgjlasjglasglagalskdjglasjglajglajsglajsldgjaslgjalsgjlasdjglasgasglka
+            if (selectQuantity != "" || QuantityXField.text != "") && selectBox.text != ""{
+                
+                // 保存用(テーブル表示用)の配列の[0]番目に代入する
+                // X個入りに対応
+                if QuantityXField.isEnabled == true{
+                    QuantityData.insert(QuantityXField.text ?? "", at: 0)
+                }else{
+                    QuantityData.insert(selectQuantity, at: 0)
+                }
+                
+                BoxData.insert(selectBox.text!, at: 0)
+                WeightData.insert(WeightLabel.text!, at: 0)
+                
+                print("カゴ保存")
+                print(WeightData)
+                print(QuantityData)
+                print(BoxData)
+                
+                // このViewに来て初めて保存する時
+                if saveFlag == false{
+                    print("false -> true")
+                    saveFlag = true
+                    saveFlagNum = QuantityData.count - 1
+                }
+                
+                // tableView更新
+                tableView.reloadData()
             }
-            
-            BoxData.insert(selectBox.text!, at: 0)
-            WeightData.insert(WeightLabel.text!, at: 0)
-            
-            print("カゴ保存")
-            print(WeightData)
-            print(QuantityData)
-            print(BoxData)
-            
-            // このViewに来て初めて保存する時
-            if saveFlag == false{
-                print("false -> true")
-                saveFlag = true
-                saveFlagNum = QuantityData.count - 1
-            }
-            
-            // tableView更新
-            tableView.reloadData()
+            WeightLabel.isHidden = true
+            measuringLabel.isHidden = false
         }
     }
     
@@ -240,6 +250,9 @@ final class ViewControllerCreate1: UIViewController {
         // キーボードは数字のみ
         self.QuantityXField.keyboardType = UIKeyboardType.numberPad
         self.selectBox.keyboardType = UIKeyboardType.numberPad
+        
+        // 重さのラベルを非表示
+        WeightLabel.isHidden = true
         
     }
     
@@ -462,6 +475,9 @@ extension ViewControllerCreate1: CBPeripheralDelegate {
         
         // 代入する重さLabelへ
         WeightLabel.text = String(weight)
+        // 重さラベル表示 計測中ラベル非表示
+        WeightLabel.isHidden = false
+        measuringLabel.isHidden = true
         
     }
 }

@@ -75,6 +75,8 @@ class ViewControllerCreate2: UIViewController {
     
     // 重さラベル
     @IBOutlet weak var WeightLabel2: UILabel!
+    // 計測中ラベル
+    @IBOutlet weak var measuringLabel2: UILabel!
     
     
     
@@ -182,80 +184,89 @@ class ViewControllerCreate2: UIViewController {
     
     // 保存ボタン押された時発動
     @IBAction func saveClick(_ sender: Any){
-        // 値が入ってないなら無視
         
-        
-//  !(WeightLabel2.text != "" || WeightLabel2.text != "0.0") &&    <- 実験用に外したhgoasgalgalhglkawghhhhhhhhhjgkdslalakjsglksagjaslgjlasjglasglagalskdjglasjglajglajsglajsldgjaslgjalsgjlasdjglasgasglka
-        
-        
-        if selectQuantity != "" || QuantityXField.text != ""{
-            // 保存用(テーブル表示用)の配列の[0]番目に代入する
-            // X個入りに対応
-            if QuantityXField.isEnabled == true{
-                QuantityData.insert(QuantityXField.text ?? "", at: 0)
-            }else{
-                QuantityData.insert(selectQuantity, at: 0)
-            }
-            
-            AnyProductData.insert(selectAnyProduct.text!, at: 0)
-            WeightData.insert(WeightLabel2.text!, at: 0)
-            
-            
-            // 残り回数減らす
-            for (key,value) in selectcage{
-                print("key : \(key)   selectQuantity : \(selectQuantity)")
-                
-                if key == Int(selectQuantity) || key == Int(QuantityXField.text!){
-                    if value != 0 {
-                        // オリジナルに上書き
-                        selectcage[key] = selectcage[key]! - 1
-                    }
-                    for x in 0 ..< arrayQuantity.count{
-                        if selectQuantity == String(arrayQuantity[x].tag){
-                            // 使用されたから1減らす
-                            arrayQuantity[x].setTitle("\(key)匹入(\(value-1))", for: .normal)
-                            // 残りがなくなれば
-                            if selectcage[key]! <= 0 {
-                                // ボタン無効化する
-                                arrayQuantity[x].isEnabled = false // ボタン無効
-                                arrayQuantity[x].backgroundColor = UIColor.black
-                                arrayQuantity[x].alpha = 0.3
-                                // 半端数ボタン無効化解除
-                                selectAnyProductBtn.isEnabled = false
-                                selectAnyProductBtn.backgroundColor = UIColor.black
-                                selectAnyProductBtn.alpha = 0.3
-                                selectQuantity = ""
-                                // こっちの画面に来た事の目印
-                                selectcage[key] = -1
+        // 計測中か確認
+        if WeightLabel2.isHidden == false{
+            // 値が入ってないなら無視
+                    
+                    
+            //  !(WeightLabel2.text != "" || WeightLabel2.text != "0.0") &&    <- 実験用に外したhgoasgalgalhglkawghhhhhhhhhjgkdslalakjsglksagjaslgjlasjglasglagalskdjglasjglajglajsglajsldgjaslgjalsgjlasdjglasgasglka
+                    
+                    
+                    if selectQuantity != "" || QuantityXField.text != ""{
+                        // 保存用(テーブル表示用)の配列の[0]番目に代入する
+                        // X個入りに対応
+                        if QuantityXField.isEnabled == true{
+                            QuantityData.insert(QuantityXField.text ?? "", at: 0)
+                        }else{
+                            QuantityData.insert(selectQuantity, at: 0)
+                        }
+                        
+                        AnyProductData.insert(selectAnyProduct.text!, at: 0)
+                        WeightData.insert(WeightLabel2.text!, at: 0)
+                        
+                        
+                        // 残り回数減らす
+                        for (key,value) in selectcage{
+                            print("key : \(key)   selectQuantity : \(selectQuantity)")
+                            
+                            if key == Int(selectQuantity) || key == Int(QuantityXField.text!){
+                                if value != 0 {
+                                    // オリジナルに上書き
+                                    selectcage[key] = selectcage[key]! - 1
+                                }
+                                for x in 0 ..< arrayQuantity.count{
+                                    if selectQuantity == String(arrayQuantity[x].tag){
+                                        // 使用されたから1減らす
+                                        arrayQuantity[x].setTitle("\(key)匹入(\(value-1))", for: .normal)
+                                        // 残りがなくなれば
+                                        if selectcage[key]! <= 0 {
+                                            // ボタン無効化する
+                                            arrayQuantity[x].isEnabled = false // ボタン無効
+                                            arrayQuantity[x].backgroundColor = UIColor.black
+                                            arrayQuantity[x].alpha = 0.3
+                                            // 半端数ボタン無効化解除
+                                            selectAnyProductBtn.isEnabled = false
+                                            selectAnyProductBtn.backgroundColor = UIColor.black
+                                            selectAnyProductBtn.alpha = 0.3
+                                            selectQuantity = ""
+                                            // こっちの画面に来た事の目印
+                                            selectcage[key] = -1
+                                        }
+                                    }
+                                }
+                                if value <= 1 {
+                                    // ピッカー用に使ったもの消す
+                                    let _set: NSSet = NSSet(array: selectCageKey)
+                                    if(_set.contains(key)){
+                                        selectCageKey = (selectCageKey.filter {$0 != key})
+                                    }
+                                    // 半端数ボタン無効化解除
+                                    selectAnyProductBtn.isEnabled = false
+                                    selectAnyProductBtn.backgroundColor = UIColor.black
+                                    selectAnyProductBtn.alpha = 0.3
+                                    QuantityXField.text = ""
+                                    // こっちの画面に来た事の目印
+                                    selectcage[key] = -1
+                                }
                             }
                         }
+                        
+                        
+            //            print("商品保存")
+            //            print(WeightData)
+            //            print(QuantityData)
+            //            print(AnyProductData)
+                        
+                        // tableView更新
+                        tableView.reloadData()
                     }
-                    if value <= 1 {
-                        // ピッカー用に使ったもの消す
-                        let _set: NSSet = NSSet(array: selectCageKey)
-                        if(_set.contains(key)){
-                            selectCageKey = (selectCageKey.filter {$0 != key})
-                        }
-                        // 半端数ボタン無効化解除
-                        selectAnyProductBtn.isEnabled = false
-                        selectAnyProductBtn.backgroundColor = UIColor.black
-                        selectAnyProductBtn.alpha = 0.3
-                        QuantityXField.text = ""
-                        // こっちの画面に来た事の目印
-                        selectcage[key] = -1
-                    }
-                }
-            }
             
-            
-//            print("商品保存")
-//            print(WeightData)
-//            print(QuantityData)
-//            print(AnyProductData)
-            
-            // tableView更新
-            tableView.reloadData()
+            WeightLabel2.isHidden = true
+            measuringLabel2.isHidden = false
         }
+        
+        
     }
     
     // 初期セット ボタン
@@ -359,6 +370,7 @@ class ViewControllerCreate2: UIViewController {
         // ボタンやピッカーに対応するための
         setSelectCage()
 
+        WeightLabel2.isHidden = true
     }
     
     // 画面遷移で値渡す-------------------------------------------------------------------------------------------------------------------------
@@ -547,6 +559,10 @@ extension ViewControllerCreate2: CBPeripheralDelegate {
         
         // 代入する重さLabelへ
         WeightLabel2.text = String(weight)
+        // 重さラベル表示 計測中ラベル非表示
+        WeightLabel2.isHidden = false
+        measuringLabel2.isHidden = true
+        
         
     }
 }
